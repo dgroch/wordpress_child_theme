@@ -86,14 +86,9 @@ function add_checkout_page_js() {
         var message = ''
         var closures = [
           {
-            city: ['Melbourne', 'Sydney'],
-            date: 'April 25, 2021',
-            message: "Sorry, we are closed on Sunday (except Mother's Day)."
-          },
-          {
-            city: ['Melbourne', 'Sydney'],
-            date: 'May 2, 2021',
-            message: "Sorry, we are closed on Sunday (except Mother's Day)."
+            city: ['Sydney'],
+            date: 'May 3, 2021',
+            message: "Sorry, we have reached capacity for deliveries today. Please choose any other day."
           },
           {
             city: ['Melbourne', 'Sydney'],
