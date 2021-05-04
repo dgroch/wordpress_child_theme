@@ -86,8 +86,8 @@ function add_checkout_page_js() {
         var message = ''
         var closures = [
           {
-            city: ['Melbourne', 'Sydney'],
-            date: 'May 4, 2021',
+            city: ['Melbourne'],
+            date: 'May 5, 2021',
             message: "Sorry, we have reached capacity for deliveries today. Please choose any other day."
           },
           {
