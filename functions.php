@@ -86,19 +86,19 @@ function add_checkout_page_js() {
         var message = ''
         var closures = [
           {
-            city: ['Melbourne', 'Sydney'],
-            date: 'May 5, 2021',
-            message: "Sorry, we have reached capacity for deliveries today. Please choose any other day."
+            city: ['Melbourne'],
+            date: 'May 6, 2021',
+            message: "Sorry, we have reached capacity for deliveries today. Please choose another day."
           },
           {
             city: ['Sydney'],
             date: 'May 7, 2021',
-            message: "Sorry, we have reached capacity for deliveries today. Capacity available 6th & 8th May."
+            message: "Sorry, we have reached capacity for deliveries today. Please choose another day."
           },
           {
-            city: ['Sydney'],
+            city: ['Melbourne', 'Sydney'],
             date: 'May 9, 2021',
-            message: "Sorry, we have reached capacity for deliveries today. Please choose any other day."
+            message: "Sorry, we have reached capacity for deliveries today. Please choose another day."
           },
           {
             city: ['Melbourne', 'Sydney'],
