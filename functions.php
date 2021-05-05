@@ -96,7 +96,7 @@ function add_checkout_page_js() {
             message: "Sorry, we have reached capacity for deliveries today. Please choose another day."
           },
           {
-            city: ['Melbourne', 'Sydney'],
+            city: ['Sydney'],
             date: 'May 9, 2021',
             message: "Sorry, we have reached capacity for deliveries today. Please choose another day."
           },
@@ -107,7 +107,12 @@ function add_checkout_page_js() {
           },
           {
             city: ['Melbourne', 'Sydney'],
-            date: 'May 16, 2021',
+            date: 'May 23, 2021',
+            message: "Sorry, we are closed on Sunday (except Mother's Day)."
+          },
+          {
+            city: ['Melbourne', 'Sydney'],
+            date: 'May 30, 2021',
             message: "Sorry, we are closed on Sunday (except Mother's Day)."
           }
         ]
