@@ -96,7 +96,7 @@ function add_checkout_page_js() {
             message: "Sorry, we have reached capacity for deliveries today. Please choose another day."
           },
           {
-            city: ['Sydney'],
+            city: ['Melbourne', 'Sydney'],
             date: 'May 9, 2021',
             message: "Sorry, we have reached capacity for deliveries today. Please choose another day."
           },
