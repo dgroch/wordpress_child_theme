@@ -88,27 +88,32 @@ function add_checkout_page_js() {
           {
             city: ['Melbourne', 'Sydney'],
             date: 'May 7, 2021',
-            message: "Sorry, we have reached capacity for deliveries today. Please choose another day."
+            message: "Sorry, we have reached capacity for Mother's Day. Next available delivery date is Monday, 10 May."
+          },
+          {
+            city: ['Melbourne', 'Sydney'],
+            date: 'May 8, 2021',
+            message: "Sorry, we have reached capacity for Mother's Day. Next available delivery date is Monday, 10 May."
           },
           {
             city: ['Melbourne', 'Sydney'],
             date: 'May 9, 2021',
-            message: "Sorry, we have reached capacity for deliveries today. Please choose another day."
+            message: "Sorry, we have reached capacity for Mother's Day. Next available delivery date is Monday, 10 May."
           },
           {
             city: ['Melbourne', 'Sydney'],
             date: 'May 16, 2021',
-            message: "Sorry, we are closed on Sunday (except Mother's Day)."
+            message: "Sorry, we are closed on Sundays. Please choose another day."
           },
           {
             city: ['Melbourne', 'Sydney'],
             date: 'May 23, 2021',
-            message: "Sorry, we are closed on Sunday (except Mother's Day)."
+            message: "Sorry, we are closed on Sundays. Please choose another day."
           },
           {
             city: ['Melbourne', 'Sydney'],
             date: 'May 30, 2021',
-            message: "Sorry, we are closed on Sunday (except Mother's Day)."
+            message: "Sorry, we are closed on Sundays. Please choose another day."
           }
         ]
 
