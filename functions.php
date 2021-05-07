@@ -10,7 +10,7 @@ function add_checkout_page_js() {
     }
 
     function alterHTML () {
-      $('.woocommerce-shipping-fields__field-wrapper').prepend('<h3>Delivery details</h3>')
+      $('#e_deliverydate_field').prepend('<h3>Delivery details</h3>')
     }
 
     function reduceCheckoutAbandonment () {
