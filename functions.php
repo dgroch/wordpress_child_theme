@@ -23,7 +23,7 @@ function add_checkout_page_js() {
       labelOptional.hide()
 
       // show on blur (if not empty)
-      shippingAutocomplete.blur(function () {
+      searchAddress.blur(function () {
         var text = jQuery(this).val()
         console.log(text)
         if (text === '') return
