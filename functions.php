@@ -13,6 +13,24 @@ function add_checkout_page_js() {
       $('#e_deliverydate_field').prepend('<h3>Delivery details</h3>')
     }
 
+    function hideShippingAddressInput () {
+      var inputAddress = jQuery('#shipping_address_1_field, #shipping_address_2_field, #shipping_city_field, #shipping_state_field, #shipping_postcode_field')
+      var searchAddress = jQuery('#gac_auto_complete_shipping_address')
+      var labelOptional = jQuery('#gac_auto_complete_shipping_address_field label span.optional')
+
+      // hide by default
+      inputAddress.hide()
+      labelOptional.hide()
+
+      // show on blur (if not empty)
+      shippingAutocomplete.blur(function () {
+        var text = jQuery(this).val()
+        console.log(text)
+        if (text === '') return
+        inputAddress.show()
+      })
+    }
+
     function reduceCheckoutAbandonment () {
       var pattern = RegExp('/checkout/')
       if (pattern.test(window.location.href)) {
