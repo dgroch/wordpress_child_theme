@@ -18,11 +18,13 @@ function add_checkout_page_js() {
       var searchAddress = jQuery('#gac_auto_complete_shipping_address')
       var labelOptional = jQuery('#gac_auto_complete_shipping_address_field label span.optional')
 
-      // hide by default
-      inputAddress.hide()
+      // hide "(optional") label
       labelOptional.hide()
 
-      // show on blur (if not empty)
+      // hide address input (when empty)
+      if (jQuery('#shipping_address_1').val() === '') inputAddress.hide()
+
+      // show address input on autocomplete blur (when not empty)
       searchAddress.blur(function () {
         var text = jQuery(this).val()
         console.log(text)
