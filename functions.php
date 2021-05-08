@@ -85,6 +85,7 @@ function add_checkout_page_js() {
 
     $(document).ready(function () {
       alterHTML()
+      hideShippingAddressInput()
       createAccountTrue()
       reduceCheckoutAbandonment()
       rejectInvalidMessageLength()
