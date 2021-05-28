@@ -10,7 +10,27 @@ function add_checkout_page_js() {
     }
 
     function alterHTML () {
-      $('.woocommerce-shipping-fields__field-wrapper').prepend('<h3>Delivery details</h3>')
+      $('#e_deliverydate_field').prepend('<h3>Delivery details</h3>')
+    }
+
+    function hideShippingAddressInput () {
+      var inputAddress = jQuery('#shipping_address_1_field, #shipping_address_2_field, #shipping_city_field, #shipping_state_field, #shipping_postcode_field')
+      var searchAddress = jQuery('#gac_auto_complete_shipping_address')
+      var labelOptional = jQuery('#gac_auto_complete_shipping_address_field label span.optional')
+
+      // hide "(optional") label
+      labelOptional.hide()
+
+      // hide address input (when empty)
+      if (jQuery('#shipping_address_1').val() === '') inputAddress.hide()
+
+      // show address input on autocomplete blur (when not empty)
+      searchAddress.blur(function () {
+        var text = jQuery(this).val()
+        console.log(text)
+        if (text === '') return
+        inputAddress.show()
+      })
     }
 
     function reduceCheckoutAbandonment () {
@@ -67,6 +87,7 @@ function add_checkout_page_js() {
 
     $(document).ready(function () {
       alterHTML()
+      hideShippingAddressInput()
       createAccountTrue()
       reduceCheckoutAbandonment()
       rejectInvalidMessageLength()
