@@ -15030,10 +15030,18 @@ h1.product_title {
 }
 
 .products .product.thb-listing-button-style4 .thb_transform_price .button,
-.price ins, .price > .amount {
+.price ins,
+.price > .amount {
   color: #808284;
 }
 
 .products .columns:last-child:not(:first-child) {
   float: left;
+}
+
+/* CF04 Hide Quantity Input Desktop Size only */
+@media only screen and (min-width: 736px) {
+  .quantity.buttons_added {
+    display: none;
+  }
 }
