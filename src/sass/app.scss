@@ -1,49 +1,55 @@
-@import './parent.css';
+@import "./parent.css";
 
 /*** Product List View */
 
 .thb-shop-title,
 .products .product h3,
 .product_title {
-    font-family: Neuzeit-Grotesk, 'BlinkMacSystemFont', -apple-system, 'Roboto', 'Lucida Sans' !important;
+  font-family: Neuzeit-Grotesk, "BlinkMacSystemFont", -apple-system, "Roboto",
+    "Lucida Sans" !important;
 }
 
 .thb-shop-title {
-    font-size: 1.5rem;
-    margin: 1rem 0 1rem 1.9125rem;
-    text-align: left;
-    text-transform: uppercase;
+  font-size: 1.5rem;
+  margin: 1rem 0 1rem 1.9125rem;
+  text-align: left;
+  text-transform: uppercase;
 }
 
 h1.product_title {
-    font-size: 2rem !important;
+  font-size: 2rem !important;
 }
 
 .badge.out-of-stock {
-    background: rgba(0,0,0,0.5);
-    color: #ffffff;
-    font-size: 0.8rem;
+  background: rgba(0, 0, 0, 0.5);
+  color: #ffffff;
+  font-size: 0.8rem;
 }
 
 .products .product h3,
 .upsells .product h3,
 .related .products h3,
 .cross-sells h3 {
-    font-size: 1rem !important;
-    text-transform: uppercase;
-    margin-bottom: 0 !important;
-	letter-spacing: 0.1rem;
-	color: #323232;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  font-size: 1rem !important;
+  text-transform: uppercase;
+  margin-bottom: 0 !important;
+  letter-spacing: 0.1rem;
+  color: #323232;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .products .product.thb-listing-button-style4 .thb_transform_price .button,
-.price ins, .price > .amount {
-	color: #808284;
+.price ins,
+.price > .amount {
+  color: #808284;
 }
 
 .products .columns:last-child:not(:first-child) {
-    float: left;
+  float: left;
+}
+
+body:not(.logged-in) .bns-cart-box .bns-cart-redeem-box.checkout-button {
+  display: none;
 }
