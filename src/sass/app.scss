@@ -60,3 +60,21 @@ body:not(.logged-in) .bns-cart-box .bns-cart-redeem-box.checkout-button {
     display: none;
   }
 }
+
+/* CF09 Implementation Desktop Only: Reverse Style of Update and Checkout CTA */
+@media screen and (min-width: 736px) {
+  button[name="update_cart"] {
+    color: #151515;
+    background-color: transparent;
+  }
+
+  .button.wc-forward:not(.checkout) {
+    background-color: #151515;
+    color: #fff;
+  }
+
+  .button.wc-forward:not(.checkout):hover {
+    background-color: transparent;
+    color: #151515;
+  }
+}
