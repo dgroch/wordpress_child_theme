@@ -147,3 +147,44 @@ body:not(.logged-in) .bns-cart-box .bns-cart-redeem-box.checkout-button {
     background-color: #333 !important;
   }
 }
+
+/* CF 3.1 Implementation Mobile Only: PDP Carousel */
+@media screen and (max-width: 767px) {
+  .slick-nav {
+    background-color: rgb(255, 255, 255, 0.3) !important;
+  }
+
+  /* Move the dots as an overlay on the image */
+  .slick-dot {
+    background-color: rgb(255, 255, 255, 0.6);
+  }
+  .slick-active .slick-dot {
+    background: rgb(255, 255, 255, 1);
+  }
+  div.small-12.columns.small-order-2.large-order-3.product-thumbnail-container.thb-horizontal-thumbnails {
+    position: relative;
+    bottom: 35px;
+  }
+
+  /* Hide the thumbnails images */
+  #product-thumbnails img {
+    display: none !important;
+  }
+  .thb-product-detail
+    .product-thumbnail-container.thb-horizontal-thumbnails
+    #product-thumbnails.product-thumbnails
+    .slick-slide {
+    width: auto !important;
+    max-width: 105px !important;
+  }
+  #product-thumbnails .slick-track {
+    width: fit-content !important;
+    margin: auto;
+  }
+  .slick-dot {
+    display: block;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+  }
+}
