@@ -25,7 +25,7 @@ do_action('woocommerce_email_header', $email_heading, $email );
     <div>
         <h1><?php echo $email_heading; ?></h1>
         <p style="font-weight:bold;">Order #<?php echo $order->get_order_number();?></p>
-        <p><span style="font-weight:bold;">Delivery Date: </span><?php $order_id = $order->get_id(); echo get_post_meta($order_id, 'delivery_date', true)  ?></p>
+        <p><span style="font-weight:bold;">Delivery Date: </span><?php $order_id = $order->get_id(); echo get_post_meta($order_id, 'Delivery Date', true)  ?></p>
         <?php do_action('woocommerce_email_order_details', $order, $sent_to_admin, $plain_text, $email ); ?>
         <?php do_action('woocommerce_email_customer_details', $order, $sent_to_admin, $plain_text, $email ); ?> 
     </div>

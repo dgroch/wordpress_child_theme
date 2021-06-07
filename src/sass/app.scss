@@ -50,6 +50,14 @@ h1.product_title {
   float: left;
 }
 
+/* CF06-cart-hide-rewards */
 body:not(.logged-in) .bns-cart-box .bns-cart-redeem-box.checkout-button {
   display: none;
+}
+
+/* CF04 Hide Quantity Input Desktop Size only */
+@media only screen and (min-width: 736px) {
+  .quantity.buttons_added {
+    display: none;
+  }
 }

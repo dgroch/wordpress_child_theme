@@ -31,6 +31,56 @@
         	a.appendChild(r);
     	})(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
 	</script>
+	<script>
+		jQuery(document).ready(function () {
+			var pattern = RegExp('/product/')
+			if (pattern.test(window.location.href)) {
+				// Append DOM elements
+				var bundledProduct = jQuery('.bundled_product')
+				bundledProduct.append('<img class="round_tick inactive" src="/wp-content/uploads/2021/05/round-tick-f8f8f8.png">')
+				bundledProduct.append('<img class="round_tick active" src="/wp-content/uploads/2021/05/round-tick-0fbd4e.png">')
+
+				// Automatically select in-stock items
+				bundledProduct.each(function (index, element) {
+					var int = index + 1
+					var el = jQuery(this)
+					var el_2 = jQuery('.bundled_item_' + int)
+					var isInStock = el.find('.details > .out-of-stock').length == 0
+					
+					el.append('<div id="cta_' + int + '" class="bundled_cta">Save 10% when you bundle.</div>')
+
+					if (isInStock) {
+						el.addClass('selected')
+						el.find('.bundled_product_checkbox').prop({checked: true})
+						
+						jQuery('.bundled_item_' + int + ' .round_tick.active').click(function () {
+							el_2.removeClass('selected')
+							el_2.find('.bundled_product_checkbox').prop({checked: false})
+						})
+						
+						jQuery('.bundled_item_' + int + ' .round_tick.inactive').click(function () {
+							el_2.addClass('selected')
+							el_2.find('.bundled_product_checkbox').prop({checked: true})
+						})						
+						
+						jQuery('#cta_' + int).click(function () {
+							var isSelected = el_2.find('.bundled_product_checkbox').prop('checked')
+							console.log(isSelected + int)
+							if (isSelected) {
+								el_2.removeClass('selected')
+								el_2.find('.bundled_product_checkbox').prop({checked: false})
+							} else {
+								el_2.addClass('selected')
+								el_2.find('.bundled_product_checkbox').prop({checked: true})
+							}
+						})
+					} else {
+						el.addClass('deselected')
+					}
+				})
+			}
+		})
+	</script>
 </head>
 <body <?php body_class(); ?>>
 	<?php if ( function_exists( 'gtm4wp_the_gtm_tag' ) ) { gtm4wp_the_gtm_tag(); } ?>
