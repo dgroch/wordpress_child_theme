@@ -58,6 +58,8 @@ body:not(.logged-in) .bns-cart-box .bns-cart-redeem-box.checkout-button {
 /* CF07 Implementation Mobile Only: Hide Prices on Homepage */
 @media screen and (max-width: 735px) {
   .home .products .product .price {
+    display: none;
+  }
 }
   
 /* CF04 Hide Quantity Input Desktop Size only */
@@ -164,9 +166,11 @@ body:not(.logged-in) .bns-cart-box .bns-cart-redeem-box.checkout-button {
   .slick-dot {
     background-color: rgb(255, 255, 255, 0.6);
   }
+
   .slick-active .slick-dot {
     background: rgb(255, 255, 255, 1);
   }
+
   div.small-12.columns.small-order-2.large-order-3.product-thumbnail-container.thb-horizontal-thumbnails {
     position: relative;
     bottom: 35px;
@@ -176,6 +180,7 @@ body:not(.logged-in) .bns-cart-box .bns-cart-redeem-box.checkout-button {
   #product-thumbnails img {
     display: none !important;
   }
+
   .thb-product-detail
     .product-thumbnail-container.thb-horizontal-thumbnails
     #product-thumbnails.product-thumbnails
@@ -183,10 +188,12 @@ body:not(.logged-in) .bns-cart-box .bns-cart-redeem-box.checkout-button {
     width: auto !important;
     max-width: 105px !important;
   }
+
   #product-thumbnails .slick-track {
     width: fit-content !important;
     margin: auto;
   }
+
   .slick-dot {
     display: block;
     width: 15px;
