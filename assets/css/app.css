@@ -15053,7 +15053,7 @@ body:not(.logged-in) .bns-cart-box .bns-cart-redeem-box.checkout-button {
 /* CF04 Hide Quantity Input Desktop Size only */
 @media only screen and (min-width: 736px) {
   .quantity.buttons_added {
-    display: none;
+    display: none !important;
   }
 }
 /* CF09 Implementation Desktop Only: Reverse Style of Update and Checkout CTA */
