@@ -36,7 +36,7 @@
                                                     
             function my_woocommerce_email_order_meta_keys( $keys ) {                        
                 $keys['Delivery Suburb'] = 'shipping_suburbs_limited';                        
-                $keys['Delivery Date'] = 'delivery_date';                                     
+                $keys['Delivery Date'] = 'Delivery Date';                                     
                 return $keys;                                                                 
             }                                                                               
 
@@ -47,7 +47,7 @@
             $keys['Delivery Suburb'] = 'shipping_suburbs_limited';                          
 
             /** show delivery date */
-            $keys['Delivery Date'] = 'delivery_date'; 
+            $keys['Delivery Date'] = 'Delivery Date'; 
         ?>
         <?php do_action('woocommerce_email_order_details', $order, $sent_to_admin, $plain_text, $email ); ?>
         <?php do_action('woocommerce_email_customer_details', $order, $sent_to_admin, $plain_text, $email ); ?>
