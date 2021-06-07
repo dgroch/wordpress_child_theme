@@ -84,3 +84,72 @@ body:not(.logged-in) .bns-cart-box .bns-cart-redeem-box.checkout-button {
     color: #151515;
   }
 }
+
+/* CF10 Implementation Desktop Only: Sitewide CTA black with white text */
+@media screen and (min-width: 736px) {
+  .btn.border-fill:after {
+    display: none !important;
+  }
+
+  .btn.border-fill {
+    background-color: #000 !important;
+    color: #fff !important;
+  }
+
+  a.btn.border-fill:hover {
+    background-color: #333 !important;
+  }
+
+  .thb-product-detail form button[type="submit"] {
+    background-color: #000 !important;
+    color: #fff !important;
+  }
+
+  .thb-product-detail form button[type="submit"]:hover {
+    background-color: #333 !important;
+  }
+
+  .wpb_wrapper .btn-checkout-now a.vc_general {
+    background-color: #000 !important;
+    color: #fff !important;
+  }
+
+  .wpb_wrapper .btn-checkout-now a.vc_general:hover {
+    background-color: #333 !important;
+  }
+
+  .wc-proceed-to-checkout a.checkout-button {
+    background-color: #000 !important;
+    color: #fff !important;
+  }
+
+  .wc-proceed-to-checkout a.checkout-button:hover {
+    background-color: #333 !important;
+    color: #fff !important;
+  }
+
+  .small-12.small-12.columns button[name="update_cart"] {
+    color: #151515 !important;
+    background-color: transparent !important;
+  }
+
+  .small-12.columns
+    .cross-sells
+    .products.thb-main-products
+    .product
+    .thb_transform_price
+    .thb_transform_loop_buttons
+    a.button {
+    background-color: unset !important;
+    color: unset !important;
+  }
+
+  #place_order {
+    background-color: #000 !important;
+    color: #fff !important;
+  }
+
+  #place_order:hover {
+    background-color: #333 !important;
+  }
+}
