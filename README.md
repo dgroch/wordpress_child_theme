@@ -14,10 +14,28 @@ We use Laravel Mix as a convenient and user-friendly wrapper for webpack. Instal
 
 To create a build (ie. optimise JS and CSS assets) run `npx mix`
 
-## Release Process
-
 Continuous Integration has been configured for this project. 
 
 When changes are merged into **Develop** branch then the staging server is automatically updated.
 
 When changes are merged into **Master** branch then the production server is updated.
+
+## Release Process
+
+Install git flow within your local copy of the repository.
+
+Use `git flow release start <version>` to initiate a release.
+
+When finished with the release, update the version number in `style.css` and commit all changes. Then publish to remote with the following commands
+
+> git checkout develop
+> git push
+
+----
+
+> git checkout master
+> git push
+
+----
+
+> git push --tags
