@@ -15039,9 +15039,143 @@ h1.product_title {
   float: left;
 }
 
+/* CF06-cart-hide-rewards */
+body:not(.logged-in) .bns-cart-box .bns-cart-redeem-box.checkout-button {
+  display: none;
+}
+
+/* CF07 Implementation Mobile Only: Hide Prices on Homepage */
+@media screen and (max-width: 735px) {
+  .home .products .product .price {
+    display: none;
+  }
+}
 /* CF04 Hide Quantity Input Desktop Size only */
 @media only screen and (min-width: 736px) {
   .quantity.buttons_added {
-    display: none;
+    display: none !important;
+  }
+}
+/* CF09 Implementation Desktop Only: Reverse Style of Update and Checkout CTA */
+@media screen and (min-width: 736px) {
+  button[name=update_cart] {
+    color: #151515;
+    background-color: transparent;
+  }
+
+  .button.wc-forward:not(.checkout) {
+    background-color: #151515;
+    color: #fff;
+  }
+
+  .button.wc-forward:not(.checkout):hover {
+    background-color: transparent;
+    color: #151515;
+  }
+}
+/* CF10 Implementation Desktop Only: Sitewide CTA black with white text */
+@media screen and (min-width: 736px) {
+  .btn.border-fill:after {
+    display: none !important;
+  }
+
+  .btn.border-fill {
+    background-color: #000 !important;
+    color: #fff !important;
+  }
+
+  a.btn.border-fill:hover {
+    background-color: #333 !important;
+  }
+
+  .thb-product-detail form button[type=submit] {
+    background-color: #000 !important;
+    color: #fff !important;
+  }
+
+  .thb-product-detail form button[type=submit]:hover {
+    background-color: #333 !important;
+  }
+
+  .wpb_wrapper .btn-checkout-now a.vc_general {
+    background-color: #000 !important;
+    color: #fff !important;
+  }
+
+  .wpb_wrapper .btn-checkout-now a.vc_general:hover {
+    background-color: #333 !important;
+  }
+
+  .wc-proceed-to-checkout a.checkout-button {
+    background-color: #000 !important;
+    color: #fff !important;
+  }
+
+  .wc-proceed-to-checkout a.checkout-button:hover {
+    background-color: #333 !important;
+    color: #fff !important;
+  }
+
+  .small-12.small-12.columns button[name=update_cart] {
+    color: #151515 !important;
+    background-color: transparent !important;
+  }
+
+  .small-12.columns .cross-sells .products.thb-main-products .product .thb_transform_price .thb_transform_loop_buttons a.button {
+    background-color: unset !important;
+    color: unset !important;
+  }
+
+  #place_order {
+    background-color: #000 !important;
+    color: #fff !important;
+  }
+
+  #place_order:hover {
+    background-color: #333 !important;
+  }
+}
+/* CF 3.1 Implementation Mobile Only: PDP Carousel */
+@media screen and (max-width: 767px) {
+  .slick-nav {
+    background-color: rgba(255, 255, 255, 0.3) !important;
+  }
+
+  /* Move the dots as an overlay on the image */
+  .slick-dot {
+    background-color: rgba(255, 255, 255, 0.6);
+  }
+
+  .slick-active .slick-dot {
+    background: white;
+  }
+
+  div.small-12.columns.small-order-2.large-order-3.product-thumbnail-container.thb-horizontal-thumbnails {
+    position: relative;
+    bottom: 35px;
+  }
+
+  /* Hide the thumbnails images */
+  #product-thumbnails img {
+    display: none !important;
+  }
+
+  .thb-product-detail .product-thumbnail-container.thb-horizontal-thumbnails #product-thumbnails.product-thumbnails .slick-slide {
+    width: auto !important;
+    max-width: 105px !important;
+  }
+
+  #product-thumbnails .slick-track {
+    width: -webkit-fit-content !important;
+    width: -moz-fit-content !important;
+    width: fit-content !important;
+    margin: auto;
+  }
+
+  .slick-dot {
+    display: block;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
   }
 }
