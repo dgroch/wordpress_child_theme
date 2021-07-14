@@ -70,7 +70,7 @@ function manage_delivery_location_state() {
 		var productTag = RegExp('/product-tag/')
 		var productCategory = RegExp('/product-category/')
 		var productLink = RegExp('/product/')
-		var shopLink = RegExp('/shop/')
+		var shopLink = RegExp('/shop')
 		
 		function append (city) {
 			jQuery('a').each(function (i) {
@@ -82,11 +82,11 @@ function manage_delivery_location_state() {
 				}
 				
 				if (productLink.test(url) ||
-					shopLink.test(url) ||
-					url === 'https://www.figandbloom.com.au' ||
-					url === 'https://www.figandbloom.com.au/') {
-					if (RegExp('city=').test(url)) return
-					jQuery(this).attr('href', url + '?attribute_pa_city=' + city)
+				    shopLink.test(url) ||
+				    url === 'https://www.figandbloom.com.au' ||
+				    url === 'https://www.figandbloom.com.au/') {
+				  if (RegExp('city=').test(url)) return
+				  jQuery(this).attr('href', url + '?attribute_pa_city=' + city)
 				}					
 			}) 
 		}
