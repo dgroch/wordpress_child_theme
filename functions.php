@@ -66,7 +66,7 @@ function manage_delivery_location_state() {
 		var pageUrl = window.location.href
 		var isMelbourne = RegExp('city=melbourne').test(pageUrl) || RegExp('/flower-delivery/melbourne').test(pageUrl)
 		var isSydney = RegExp('city=sydney').test(pageUrl) || RegExp('/flower-delivery/sydney').test(pageUrl)
-		var isBrisbane = RegExp('city=brisbane').test(pageUrl) || RegExp('/qld/brisbane')
+		var isBrisbane = RegExp('city=brisbane').test(pageUrl) || RegExp('/qld/brisbane').test(pageUrl)
 		
 		var productTag = RegExp('/product-tag/')
 		var productCategory = RegExp('/product-category/')
