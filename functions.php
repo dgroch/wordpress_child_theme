@@ -246,9 +246,9 @@ function cf_conversion_tracking_thank_you_page($order_id) {
 	}
 }
 
-/** Hide out of stock items **/
-add_action( 'pre_get_posts', 'iconic_hide_out_of_stock_products' );
-function iconic_hide_out_of_stock_products( $q ) {
+/** Hide out of stock items
+add_action( 'pre_get_posts', 'hide_out_of_stock_products' );
+function hide_out_of_stock_products( $q ) {
     if ( ! $q->is_main_query() || is_admin() ) {
         return;
     }
@@ -264,3 +264,4 @@ function iconic_hide_out_of_stock_products( $q ) {
     }
     remove_action( 'pre_get_posts', 'iconic_hide_out_of_stock_products' );
 }
+**/
