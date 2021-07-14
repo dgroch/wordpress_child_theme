@@ -63,9 +63,10 @@ add_action( 'wp_footer', 'manage_delivery_location_state' );
 function manage_delivery_location_state() {
 	?>
 	<script>
-		var isMelbourne = RegExp('city=melbourne').test(window.location.href)
-		var isSydney = RegExp('city=sydney').test(window.location.href)
-		var isBrisbane = RegExp('city=brisbane').test(window.location.href)
+		var pageUrl = window.location.href
+		var isMelbourne = RegExp('city=melbourne').test(pageUrl) || RegExp('/flower-delivery/melbourne').test(pageUrl)
+		var isSydney = RegExp('city=sydney').test(pageUrl) || RegExp('/flower-delivery/sydney').test(pageUrl)
+		var isBrisbane = RegExp('city=brisbane').test(pageUrl) || RegExp('/qld/brisbane')
 		
 		var productTag = RegExp('/product-tag/')
 		var productCategory = RegExp('/product-category/')
