@@ -70,7 +70,7 @@ function manage_delivery_location_state() {
 		var productTag = RegExp('/product-tag/')
 		var productCategory = RegExp('/product-category/')
 		var productLink = RegExp('/product/')
-		var shopLink = RegExp('/shop/')
+		var shopLink = RegExp('/shop')
 		
 		function append (city) {
 			jQuery('a').each(function (i) {
@@ -82,11 +82,11 @@ function manage_delivery_location_state() {
 				}
 				
 				if (productLink.test(url) ||
-					shopLink.test(url) ||
-					url === 'https://www.figandbloom.com.au' ||
-					url === 'https://www.figandbloom.com.au/') {
-					if (RegExp('city=').test(url)) return
-					jQuery(this).attr('href', url + '?attribute_pa_city=' + city)
+				    shopLink.test(url) ||
+				    url === 'https://www.figandbloom.com.au' ||
+				    url === 'https://www.figandbloom.com.au/') {
+				  if (RegExp('city=').test(url)) return
+				  jQuery(this).attr('href', url + '?attribute_pa_city=' + city)
 				}					
 			}) 
 		}
@@ -246,9 +246,9 @@ function cf_conversion_tracking_thank_you_page($order_id) {
 	}
 }
 
-/** Hide out of stock items **/
-add_action( 'pre_get_posts', 'iconic_hide_out_of_stock_products' );
-function iconic_hide_out_of_stock_products( $q ) {
+/** Hide out of stock items
+add_action( 'pre_get_posts', 'hide_out_of_stock_products' );
+function hide_out_of_stock_products( $q ) {
     if ( ! $q->is_main_query() || is_admin() ) {
         return;
     }
@@ -264,3 +264,4 @@ function iconic_hide_out_of_stock_products( $q ) {
     }
     remove_action( 'pre_get_posts', 'iconic_hide_out_of_stock_products' );
 }
+**/
