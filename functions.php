@@ -1,5 +1,103 @@
 <?php
 
+/** Bundle Up-Sells UX **/
+add_action( 'wp_footer', 'bundle_upsells' );
+function bundle_upsells() {
+	?>
+	<script>
+		jQuery(document).ready(function () {
+			var pattern = RegExp('/product/')
+			
+			if (pattern.test(window.location.href)) {
+				// Append DOM elements
+				var bundledProduct = jQuery('.bundled_product')
+				bundledProduct.append('<img class="round_tick inactive" src="/wp-content/uploads/2021/05/round-tick-f8f8f8.png">')
+				bundledProduct.append('<img class="round_tick active" src="/wp-content/uploads/2021/05/round-tick-0fbd4e.png">')
+
+				// Automatically select in-stock items
+				bundledProduct.each(function (index, element) {
+					var int = index + 1
+					var el = jQuery(this)
+					var el_2 = jQuery('.bundled_item_' + int)
+					var isInStock = el.find('.details > .out-of-stock').length == 0
+					
+					el.append('<div id="cta_' + int + '" class="bundled_cta">Save 10% when you bundle.</div>')
+
+					if (isInStock) {
+						el.addClass('selected')
+						el.find('.bundled_product_checkbox').prop({checked: true})
+						
+						jQuery('.bundled_item_' + int + ' .round_tick.active').click(function () {
+							el_2.removeClass('selected')
+							el_2.find('.bundled_product_checkbox').prop({checked: false})
+						})
+						
+						jQuery('.bundled_item_' + int + ' .round_tick.inactive').click(function () {
+							el_2.addClass('selected')
+							el_2.find('.bundled_product_checkbox').prop({checked: true})
+						})						
+						
+						jQuery('#cta_' + int).click(function () {
+							var isSelected = el_2.find('.bundled_product_checkbox').prop('checked')
+							console.log(isSelected + int)
+							if (isSelected) {
+								el_2.removeClass('selected')
+								el_2.find('.bundled_product_checkbox').prop({checked: false})
+							} else {
+								el_2.addClass('selected')
+								el_2.find('.bundled_product_checkbox').prop({checked: true})
+							}
+						})
+					} else {
+						el.addClass('deselected')
+					}
+				})
+			}
+		})
+	</script>
+	<?php
+}
+
+/** Manage Delivery Location State **/
+add_action( 'wp_footer', 'manage_delivery_location_state' );
+function manage_delivery_location_state() {
+	?>
+	<script>
+		var isMelbourne = RegExp('city=melbourne').test(window.location.href)
+		var isSydney = RegExp('city=sydney').test(window.location.href)
+		var isBrisbane = RegExp('city=brisbane').test(window.location.href)
+		
+		var productTag = RegExp('/product-tag/')
+		var productCategory = RegExp('/product-category/')
+		var productLink = RegExp('/product/')
+		var shopLink = RegExp('/shop/')
+		
+		function append (city) {
+			jQuery('a').each(function (i) {
+				var url = jQuery(this).attr('href')
+				
+				if (productTag.test(url) || productCategory.test(url)) {
+					if (RegExp('city=').test(url)) return
+					jQuery(this).attr('href', url + '?filter_city=' + city)
+				}
+				
+				if (productLink.test(url) ||
+					shopLink.test(url) ||
+					url === 'https://www.figandbloom.com.au' ||
+					url === 'https://www.figandbloom.com.au/') {
+					if (RegExp('city=').test(url)) return
+					jQuery(this).attr('href', url + '?attribute_pa_city=' + city)
+				}					
+			}) 
+		}
+		
+		if (isMelbourne) append('melbourne')
+		if (isSydney) append('sydney')
+		if (isBrisbane) append('brisbane')
+	</script>
+	<?php
+}
+
 /** Add Javascript to Checkout page */
 add_action( 'woocommerce_after_checkout_form', 'add_checkout_page_js');
 function add_checkout_page_js() {
