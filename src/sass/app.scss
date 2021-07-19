@@ -148,13 +148,14 @@ body:not(.logged-in) .bns-cart-box .bns-cart-redeem-box.checkout-button {
   }
 }
 
-/* CF01 PDP Move Metadata Styles */
-.cf01-meta {
-  margin: 0 auto;
+/* CF 12 Collections: Hide Price (Desktop size only) */
+@media screen and (min-width: 736px) {
+  .products .product.thb-listing-button-style4 span.price {
+    display: none;
+  }
 }
-.product_meta.cf01-show {
-  font-size: 10px;
-}
-.woocommerce-tabs.cf01-show {
-  margin: 0 0 30px;
+@media screen and (min-width: 768px) {
+  .products .product {
+    margin-bottom: 30px;
+  }
 }
