@@ -183,9 +183,18 @@ function add_checkout_page_js() {
         }
       })
     }
+      
+      function focusApartmentField () {
+		    jQuery('#gac_auto_complete_shipping_address').focusout(function() {
+          window.setTimeout(function () {
+            jQuery('#shipping_address_2').focus();
+          }, 1000)
+        });
+      }
 
     $(document).ready(function () {
       alterHTML()
+      focusApartmentField()
       hideShippingAddressInput()
       createAccountTrue()
       reduceCheckoutAbandonment()
