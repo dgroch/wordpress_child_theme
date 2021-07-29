@@ -72,7 +72,6 @@ function manage_delivery_location_state() {
     
 		var productTag = RegExp('/product-tag/')
 		var productCategory = RegExp('/product-category/')
-		var productLink = RegExp('/product/')
 		var shopLink = RegExp('/shop')
 		
 		function append (city) {
@@ -84,8 +83,7 @@ function manage_delivery_location_state() {
 					jQuery(this).attr('href', url + '?filter_city=' + city)
 				}
 				
-				if (productLink.test(url) ||
-				    shopLink.test(url) ||
+				if (shopLink.test(url) ||
 				    url === 'https://www.figandbloom.com.au' ||
 				    url === 'https://www.figandbloom.com.au/') {
 				  if (RegExp('city=').test(url)) return
@@ -94,10 +92,12 @@ function manage_delivery_location_state() {
 			}) 
 		}
 		
-		if (isMelbourne) append('melbourne')
-		if (isSydney) append('sydney')
-		if (isBrisbane) append('brisbane')
-    if (isRestOfAustralia) append('rest-of-australia')
+		jQuery(document).ready(function () {
+			if (isMelbourne) append('melbourne')
+			if (isSydney) append('sydney')
+			if (isBrisbane) append('brisbane')
+    		if (isRestOfAustralia) append('rest-of-australia')	
+		})
 	</script>
 	<?php
 }
