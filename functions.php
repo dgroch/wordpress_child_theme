@@ -112,7 +112,7 @@ function add_checkout_page_js() {
     }
 
     function alterHTML () {
-      $('#e_deliverydate_field').prepend('<h3>Delivery details</h3>')
+      jQuery('.shipping_address').prepend('<h3 style="margin-top: 0; margin-bottom: 15px;">Delivery details</h3>')
     }
 
     function hideShippingAddressInput () {
