@@ -28,11 +28,11 @@ do_action( 'woocommerce_email_header', $email_heading, $email ); ?>
     <td valign="top" id="templateBody">
         <div>
             <h1><?php echo $email_heading; ?></h1>
-            <p>Our driver has just delivered the stunning blooms you chose. Speaking of choice, thank you&nbsp;for choosing Fig &amp; Bloom!</p>
-            <p>We're sure <?php echo $order->get_shipping_first_name(); ?> will enjoy watching the flowers bloom over the coming week.</p>
+            <p>Your order has been marked complete and attached you will find a Tax Invoice in case you need it.</p>
+            <p>Please don't hesitate to get in touch with any questions.</p>
             <p>With love,<br />
                 Kellie xx</p>
-            <p style="margin-top:40px;">PS: we'll send a separate email in a moment with a photo of your order. Thanks again for choosing Fig &amp; Bloom!</p>
+            <p style="margin-top:40px;">PS: we'll send a separate email in a moment with a photo of your gift. Thanks again for choosing Fig &amp; Bloom!</p>
         </div>
         <div class="spacer 20px"></div>
     </td>
