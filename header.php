@@ -4,12 +4,10 @@
 	<meta charset="<?php bloginfo( 'charset' ); ?>" />
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-	<!-- begin Convert Experiences code -->
-	<script type="text/javascript" src="https://cdn-3.convertexperiments.com/js/10035135-10033102.js"></script>
-	<!-- end Convert Experiences code -->
 	<link rel="profile" href="http://gmpg.org/xfn/11">
 	<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
 	<link rel="stylesheet" href="https://use.typekit.net/afz8uqm.css">
+	<script>(function(w,d,t,r,u){var f,n,i;w[u]=w[u]||[],f=function(){var o={ti:"56340856"};o.q=w[u],w[u]=new UET(o),w[u].push("pageLoad")},n=d.createElement(t),n.src=r,n.async=1,n.onload=n.onreadystatechange=function(){var s=this.readyState;s&&s!=="loaded"&&s!=="complete"||(f(),n.onload=n.onreadystatechange=null)},i=d.getElementsByTagName(t)[0],i.parentNode.insertBefore(n,i)})(window,document,"script","//bat.bing.com/bat.js","uetq");</script>
 	<?php wp_site_icon(); ?>
 	<?php 
 		/* 	Always have wp_head() just before the closing </head>
@@ -19,18 +17,6 @@
 		**/
 		wp_head(); 
 	?>
-  
-	<!-- Hotjar Tracking Code for https://www.figandbloom.com.au/ -->
-	<script>
-    	(function(h,o,t,j,a,r){
-        	h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
-        	h._hjSettings={hjid:2276363,hjsv:6};
-       		a=o.getElementsByTagName('head')[0];
-        	r=o.createElement('script');r.async=1;
-        	r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
-        	a.appendChild(r);
-    	})(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
-	</script>
 </head>
 <body <?php body_class(); ?>>
 	<?php if ( function_exists( 'gtm4wp_the_gtm_tag' ) ) { gtm4wp_the_gtm_tag(); } ?>
