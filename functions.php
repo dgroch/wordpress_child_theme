@@ -234,29 +234,21 @@ function add_cart_page_js() {
 
 
 /* Convert Revenue Tracking */
-add_action( 'woocommerce_thankyou', 'cf_conversion_tracking_thank_you_page' );
-function cf_conversion_tracking_thank_you_page($order_id) {
-	if(!isset($_COOKIE['cfconversioncounted'])){
+add_action( 'woocommerce_thankyou', 'msft_tracking_thank_you_page' );
+function msft_tracking_thank_you_page($order_id) {
 		if ( $order_id > 0 ) {
 			$order = wc_get_order( $order_id );
 			if ( $order instanceof WC_Order ) {
 				$order_total = $order->get_subtotal();
-				$item_count = $order->get_item_count();
 				?>
                 <script type="text/javascript">
-                    let subTotal = '<?php echo $order_total ?>';
-					let prodCount = '<?php echo $item_count ?>';
-					
-					subTotal = subTotal.replace(/,/, '');
-					
-					window._conv_q = window._conv_q || [];
-    				window._conv_q.push(["pushRevenue", subTotal, prodCount, 100312454]);
+			let subTotal = '<?php echo $order_total ?>';
+			subTotal = subTotal.replace(/,/, '');
+			window.uetq = window.uetq || [];window.uetq.push('event', '', {"revenue_value":subTotal,"currency":"AUD"});
                 </script>
 				<?php
-				setcookie('cfconversioncounted', 'true');
 			}
 		}
-	}
 }
 
 /** Hide out of stock items **/
