@@ -9,6 +9,12 @@
 	<link rel="stylesheet" href="https://use.typekit.net/afz8uqm.css">
 	<script>(function(w,d,t,r,u){var f,n,i;w[u]=w[u]||[],f=function(){var o={ti:"56340856"};o.q=w[u],w[u]=new UET(o),w[u].push("pageLoad")},n=d.createElement(t),n.src=r,n.async=1,n.onload=n.onreadystatechange=function(){var s=this.readyState;s&&s!=="loaded"&&s!=="complete"||(f(),n.onload=n.onreadystatechange=null)},i=d.getElementsByTagName(t)[0],i.parentNode.insertBefore(n,i)})(window,document,"script","//bat.bing.com/bat.js","uetq");</script>
 	<?php wp_site_icon(); ?>
+	<script>
+	  window.__productReviewSettings = {
+	    brandId: '63ff9589-2d85-46ff-a083-e83b5d7007a1'
+	  };
+	</script>
+<script src="https://cdn.productreview.com.au/assets/widgets/loader.js" async></script>
 	<?php 
 		/* 	Always have wp_head() just before the closing </head>
 		 ** 	tag of your theme, or you will break many plugins, which
