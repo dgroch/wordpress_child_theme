@@ -28,8 +28,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 								<tr>
 									<h2>Contact Us</h2>
 									<p><strong>Melbourne</strong><br />
-										 126 Edgevale Road<br />
-										 KEW VIC 3101<br />
+										 620-622 Burwood Road<br />
+										 HAWTHORN EAST VIC 3123<br />
 										 03 8899 6972</p>
                   <div class="spacer 10px"></div>
 									<p><strong>Sydney</strong><br />
