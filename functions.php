@@ -277,6 +277,8 @@ function wc_register_guests( $order_id ) {
     update_user_meta( $user_id, 'guest', 'yes' );
  
     //user's billing data
+    update_user_meta( $user_id, 'first_name', $order->billing_first_name );
+    update_user_meta( $user_id, 'last_name', $order->billing_last_name );
     update_user_meta( $user_id, 'billing_company', $order->billing_company );
     update_user_meta( $user_id, 'billing_email', $order->billing_email );
     update_user_meta( $user_id, 'billing_first_name', $order->billing_first_name );
@@ -290,16 +292,16 @@ function wc_register_guests( $order_id ) {
     //update_user_meta( $user_id, 'billing_country', $order->billing_country );
     
     // user's shipping data
-    update_user_meta( $user_id, 'shipping_address_1', $order->shipping_address_1 );
-    update_user_meta( $user_id, 'shipping_address_2', $order->shipping_address_2 );
-    update_user_meta( $user_id, 'shipping_city', $order->shipping_city );
-    update_user_meta( $user_id, 'shipping_company', $order->shipping_company );
-    update_user_meta( $user_id, 'shipping_country', $order->shipping_country );
-    update_user_meta( $user_id, 'shipping_first_name', $order->shipping_first_name );
-    update_user_meta( $user_id, 'shipping_last_name', $order->shipping_last_name );
-    update_user_meta( $user_id, 'shipping_method', $order->shipping_method );
-    update_user_meta( $user_id, 'shipping_postcode', $order->shipping_postcode );
-    update_user_meta( $user_id, 'shipping_state', $order->shipping_state );
+    // update_user_meta( $user_id, 'shipping_address_1', $order->shipping_address_1 );
+    // update_user_meta( $user_id, 'shipping_address_2', $order->shipping_address_2 );
+    // update_user_meta( $user_id, 'shipping_city', $order->shipping_city );
+    // update_user_meta( $user_id, 'shipping_company', $order->shipping_company );
+    // update_user_meta( $user_id, 'shipping_country', $order->shipping_country );
+    // update_user_meta( $user_id, 'shipping_first_name', $order->shipping_first_name );
+    // update_user_meta( $user_id, 'shipping_last_name', $order->shipping_last_name );
+    // update_user_meta( $user_id, 'shipping_method', $order->shipping_method );
+    // update_user_meta( $user_id, 'shipping_postcode', $order->shipping_postcode );
+    // update_user_meta( $user_id, 'shipping_state', $order->shipping_state );
     
     // link past orders to this newly created customer
     wc_update_new_customer_past_orders( $user_id );
