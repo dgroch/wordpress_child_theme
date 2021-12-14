@@ -194,6 +194,15 @@ function add_checkout_page_js() {
           }, 1000)
         });
       }
+		  
+    function hideDeliveryDateInput () {
+	    jQuery("#e_deliverydate_field").hide();
+	    jQuery("#gac_auto_complete_shipping_address,#shipping_address_1").focusout(function () {
+		    if (jQuery("#shipping_address_1").val()) {
+			    jQuery("#e_deliverydate_field").show()
+		    }
+	    })
+    })
 
     $(document).ready(function () {
       alterHTML()
@@ -202,6 +211,7 @@ function add_checkout_page_js() {
       createAccountTrue()
       reduceCheckoutAbandonment()
       rejectInvalidMessageLength()
+      hideDeliveryDateInput()
     })
   })
   </script>
