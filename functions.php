@@ -194,24 +194,14 @@ function add_checkout_page_js() {
           }, 1000)
         });
       }
-		  
-    function hideDeliveryDateInput () {
-	    jQuery("#e_deliverydate_field").hide();
-	    jQuery("#gac_auto_complete_shipping_address,#shipping_address_1").focusout(function () {
-		    if (jQuery("#shipping_address_1").val()) {
-			    jQuery("#e_deliverydate_field").show()
-		    }
-	    })
-    })
 
     $(document).ready(function () {
       alterHTML()
       focusApartmentField()
-      hideShippingAddressInput()
+      //hideShippingAddressInput()
       createAccountTrue()
       reduceCheckoutAbandonment()
       rejectInvalidMessageLength()
-      hideDeliveryDateInput()
     })
   })
   </script>
@@ -322,7 +312,6 @@ function wc_register_guests( $order_id ) {
 //add this newly created function to the thank you page
 add_action( 'woocommerce_thankyou', 'wc_register_guests', 10, 1 );
 
-//Replace "Add to cart" button with "View product" button
 add_filter( 'woocommerce_loop_add_to_cart_link', 'replacing_add_to_cart_button', 10, 2 );
 function replacing_add_to_cart_button( $button, $product  ) {
     $button_text = __("View product", "woocommerce");
