@@ -321,3 +321,12 @@ function wc_register_guests( $order_id ) {
  
 //add this newly created function to the thank you page
 add_action( 'woocommerce_thankyou', 'wc_register_guests', 10, 1 );
+
+//Replace "Add to cart" button with "View product" button
+add_filter( 'woocommerce_loop_add_to_cart_link', 'replacing_add_to_cart_button', 10, 2 );
+function replacing_add_to_cart_button( $button, $product  ) {
+    $button_text = __("View product", "woocommerce");
+    $button = '<a class="button" href="' . $product->get_permalink() . '">' . $button_text . '</a>';
+
+    return $button;
+}
