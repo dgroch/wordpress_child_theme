@@ -115,26 +115,6 @@ function add_checkout_page_js() {
       jQuery('.shipping_address').prepend('<h3 style="margin-top: 0; margin-bottom: 15px;">Delivery details</h3>')
     }
 
-    function hideShippingAddressInput () {
-      var inputAddress = jQuery('#shipping_address_1_field, #shipping_address_2_field, #shipping_city_field, #shipping_state_field, #shipping_postcode_field')
-      var searchAddress = jQuery('#gac_auto_complete_shipping_address')
-      var labelOptional = jQuery('#gac_auto_complete_shipping_address_field label span.optional')
-
-      // hide "(optional") label
-      labelOptional.hide()
-
-      // hide address input (when empty)
-      if (jQuery('#shipping_address_1').val() === '') inputAddress.hide()
-
-      // show address input on autocomplete blur (when not empty)
-      searchAddress.blur(function () {
-        var text = jQuery(this).val()
-        console.log(text)
-        if (text === '') return
-        inputAddress.show()
-      })
-    }
-
     function reduceCheckoutAbandonment () {
       var pattern = RegExp('/checkout/')
       if (pattern.test(window.location.href)) {
@@ -186,32 +166,21 @@ function add_checkout_page_js() {
         }
       })
     }
-      
-      function focusApartmentField () {
-		    jQuery('#gac_auto_complete_shipping_address').focusout(function() {
-          window.setTimeout(function () {
-            jQuery('#shipping_address_2').focus();
-          }, 1000)
-        });
-      }
 		  
-    function hideDeliveryDateInput () {
-	    jQuery("#e_deliverydate_field").hide();
-	    jQuery("#gac_auto_complete_shipping_address,#shipping_address_1").focusout(function () {
-		    if (jQuery("#shipping_address_1").val()) {
-			    jQuery("#e_deliverydate_field").show()
-		    }
-	    })
-    })
+   function hideDeliveryDateWhenPostcodeEmpty () {
+     	window.setInterval(function () {
+		jQuery("#shipping_postcode").val() === ""
+			? jQuery("#e_deliverydate_field").hide()
+			: jQuery("#e_deliverydate_field").show();
+	}, 1000)
+   }
 
     $(document).ready(function () {
-      alterHTML()
-      focusApartmentField()
-      hideShippingAddressInput()
-      createAccountTrue()
-      reduceCheckoutAbandonment()
-      rejectInvalidMessageLength()
-      hideDeliveryDateInput()
+	    alterHTML()
+	    createAccountTrue()
+	    reduceCheckoutAbandonment()
+	    rejectInvalidMessageLength()
+	    hideDeliveryDateWhenPostcodeEmpty()
     })
   })
   </script>
@@ -322,7 +291,6 @@ function wc_register_guests( $order_id ) {
 //add this newly created function to the thank you page
 add_action( 'woocommerce_thankyou', 'wc_register_guests', 10, 1 );
 
-//Replace "Add to cart" button with "View product" button
 add_filter( 'woocommerce_loop_add_to_cart_link', 'replacing_add_to_cart_button', 10, 2 );
 function replacing_add_to_cart_button( $button, $product  ) {
     $button_text = __("View product", "woocommerce");
