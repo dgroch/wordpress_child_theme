@@ -58,6 +58,262 @@ function bundle_upsells() {
 	<?php
 }
 
+	
+
+function disable_checkout_fields( $fields ) {
+ 
+  $fields['shipping']['shipping_city']['custom_attributes']       = array( 'readonly' => true );
+  $fields['shipping']['shipping_postcode']['custom_attributes']   = array( 'readonly' => true );
+
+  return $fields;
+}
+
+add_filter( 'woocommerce_checkout_fields', 'disable_checkout_fields', 10, 1 );
+
+
+		/** Delivery Location popup with session saving **/
+
+
+add_action('wp_head', 'session_delivery_location_state' );
+add_action('wp_footer', 'storing_checkout_data_in_session');
+
+
+function storing_checkout_data_in_session(){
+	?>
+	<script>
+const statesMap = {
+  ACT: "Australian Capital Territory",
+  NSW: "New South Wales",
+  SA: "South Australia",
+  WA: "Western Australia",
+  VIC: "Victoria",
+  QLD: "Queensland",
+  NT: "Northern Territory",
+  TAS: "Tasmania",
+};
+		if (window.location.href.match(/checkout/gi)){
+		  			 if( sessionStorage.getItem("state-info")!= null){
+
+		var data = sessionStorage.getItem("state-info")
+		
+if (data) {
+  data = JSON.parse(data)
+
+  document.getElementById("shipping_city")
+    .value = data.suburb
+  document.getElementById("shipping_postcode")
+    .value = data.postcode
+					 
+  document.getElementById("shipping_state")
+	.value = data.state
+// 				   el.setAttribute("value", statesMap[data.state])
+
+				 
+//   el.innerText = statesMap[data.state]
+  }
+
+					 }}
+</script>
+<?php	
+}
+	
+
+function session_delivery_location_state(){
+	?>
+	<script>
+
+			
+jQuery(document).ready(function () {
+	 var current_page_path = window.location.pathname;
+	  const user_city_new = sessionStorage.getItem('state-info')
+		  const toJSON_new = JSON.parse(user_city_new)
+	if (user_city_new == null || user_city_new == undefined || user_city_new === ''){
+		
+		
+			 if(current_page_path.match(/product-category/gi) || current_page_path.match(/product-tag/gi) || current_page_path.match(/flower-delivery/gi)
+			   || current_page_path.match(/nsw/gi) || current_page_path.match(/qld/gi) || current_page_path.match(/vic/gi) || current_page_path.match(/sa/gi)
+				|| current_page_path.match(/wa/gi) || current_page_path.match(/tas/gi)){
+				 
+				 
+				 
+					jQuery('.my_new_popup').show();
+
+			
+
+}
+
+	} else{
+
+		jQuery('.my_new_popup').hide();
+	}
+	
+		if (user_city_new == null || user_city_new == undefined || user_city_new === ''){
+								jQuery('.close_popup_btn').hide();
+
+			
+		} else{
+								jQuery('.close_popup_btn').show();
+
+		}
+	  $(".close_popup_btn").click(function(){
+
+$(".my_new_popup").hide();
+	  });
+	
+	  function formatResult(result) {
+		return result.suburb + ", " + result.state + ", " + result.postcode
+	  }
+	  var selectedState = {}
+	  $("#location").autocomplete({
+		appendTo: "#my-overlay",
+		source: function (request, response) {
+		  fetch("https://logistics.figandbloom.com.au/search?query=" + request.term)
+			.then(function (results) {
+			  return results.json();
+			})
+			.then(function (results) {
+			  return results.map(function (result) {
+				return {
+				  label: formatResult(result),
+				  value: formatResult(result),
+				  id: result._id
+				}
+			  })
+			})
+			.then(function (data) {
+			  response(data);
+			})
+			.catch(function (error) {
+			  console.log(error.message);
+			})
+		},
+		minLength: 2,
+		select: function (event, ui) {
+		  fetch("https://logistics.figandbloom.com.au/get/" + ui.item.id)
+			.then(function (result) {
+			  return result.json();
+			})
+			.then(function (result) {
+			  selectedState = result
+			  $("#location").val(formatResult(result));
+			  $("#confirm-location").prop("disabled", false);
+			});
+		}
+		  
+	  });
+	  $("#confirm-location").click(() => {
+		  		  var state_info = JSON.stringify(selectedState)
+
+		sessionStorage.setItem("state-info",`${state_info}` )
+		   var new_current_page_path = window.location.pathname;
+
+		  	    if(new_current_page_path.match(/product-category/gi) || new_current_page_path.match(/product-tag/gi) ){
+				   window.location.href = location.origin + location.pathname + 
+		   '?filter_city=' + selectedState.attr_city
+				   
+			   } else if (new_current_page_path.match(/checkout/gi)){
+				    window.location.href = location.origin + location.pathname
+				   
+			   } else{
+				   window.location.href = location.origin + location.pathname + selectedState.attr_city
+
+			   }
+		  
+
+	  })
+
+	
+	
+	
+if (user_city_new != null || user_city_new != undefined || user_city_new != '' ){
+	
+if (current_page_path.match(/product-category/gi) || current_page_path.match(/product-tag/gi)){
+if (window.location.href.includes("filter_city")){
+}
+	 
+	else{
+	const get_user_suburb = sessionStorage.getItem('state-info')
+		  const toJSON_user_suburb = JSON.parse(get_user_suburb)
+
+			 if(sessionStorage.getItem('state-info') !=null){
+				 var refresh_new_url = window.location.protocol + "//" + window.location.host + window.location.pathname + '?filter_city=' + toJSON_user_suburb.attr_city;    
+window.history.pushState({ path: refresh_new_url }, '', refresh_new_url);
+//  window.location.href = location.origin + location.pathname + 
+// 		   '?filter_city=' + toJSON_user_suburb.attr_city
+				 
+		window.location.reload();
+		 
+	 
+			  
+				
+}
+}
+	}	
+	}
+$("#location_btnne").click(() => {
+								jQuery('.my_new_popup').show();
+
+			})
+$("#shipping_city").click(() => {
+								jQuery('.my_new_popup').show();
+
+			})
+$("#shipping_state").click(() => {
+								jQuery('.my_new_popup').show();
+
+			})
+$("#select2-shipping_state-container").click(() => {
+								jQuery('.my_new_popup').show();
+
+			})
+$("#shipping_postcode").click(() => {
+								jQuery('.my_new_popup').show();
+
+			})
+// 	$("#location").autocomplete({
+//         select: function(event, ui) {
+//             $("#confirm-location").val(ui.item.term);
+//             $(this).data("uiItem",ui.item.value);
+//         },
+//     }).bind("blur",function(){
+//         $(this).val($(this).data("uiItem"));        
+//     }).data("uiItem",$(result).val());
+	
+	
+	
+// 	 $('#location').keyup(function(){
+//     if($(this).val() != ""){
+//         $('#confirm-location').attr('disabled', false); 
+        
+//         $('#confirm-location').css({
+//             'background-color':'#f4b9b8 !important', 
+//             'color' : '#000000 !important',
+//             'cursor': 'pointer'
+//         }
+//         ) ;    
+//     }    
+//     else{
+//         $('#confirm-location').css({
+//             'background-color':'#151515 ', 
+//             'color' : '#fff ',
+
+            
+//         }
+//         ) ;    
+
+//     }
+// })
+
+	});
+	</script>
+
+
+
+<?php
+
+	
+}
+
 /** Manage Delivery Location State **/
 add_action( 'wp_footer', 'manage_delivery_location_state' );
 function manage_delivery_location_state() {

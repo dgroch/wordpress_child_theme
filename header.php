@@ -4,6 +4,9 @@
 	<meta charset="<?php bloginfo( 'charset' ); ?>" />
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+		<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<link rel="profile" href="http://gmpg.org/xfn/11">
 	<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
 	<link rel="stylesheet" href="https://use.typekit.net/afz8uqm.css">
@@ -24,6 +27,27 @@
 		**/
 		wp_head(); 
 	?>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 </head>
 <body <?php body_class(); ?>>
 	<?php if ( function_exists( 'gtm4wp_the_gtm_tag' ) ) { gtm4wp_the_gtm_tag(); } ?>
@@ -49,5 +73,46 @@
 	<!-- Start Header --> 
 	<?php get_template_part( 'inc/templates/header/header-'.ot_get_option('header_style','style1') ); ?>
 	<!-- End Header -->
+	<div class="my_new_popup" style="display:none">
+		
+	<div class="my-overlay">
+    <div class="my-overlay-mask"></div>
+    <div class="my-overlay-container">
 
-	<div role="main">
+        <div class="my-overlay-content">
+            <h2 id="popup_head_ing">Where are we</br>delivering?</h2>
+            <div style="z-index: 999991;" class="ui-widget">
+              <input style="z-index: 999991;" id="location" placeholder="Start typing...">
+              <ul style="z-index: 999991;" id="locations"></ul>
+            </div>
+            <button disabled type="submit" id="confirm-location" name="confirm-location" value="203444" class="button alt">Confirm</button>
+        </div>
+    </div>
+		<div class="close_popup_btn" style="display:none">
+			
+		</div>
+		
+</div>	
+	</div>
+	
+	
+	<div class="my_new_trigger_popup" style="display:none">
+		
+	<div class="my-overlay">
+    <div class="my-overlay-mask"></div>
+    <div class="my-overlay-container">
+        <div class="my-overlay-content">
+            <h2 id="popup_head_ing">Where are we</br>delivering?</h2>
+            <div style="z-index: 999991;" class="ui-widget">
+              <input style="z-index: 999991;" id="location" placeholder="Start typing...">
+              <ul style="z-index: 999991;" id="locations"></ul>
+            </div>
+            <button disabled type="submit" id="confirm-location" name="confirm-location" value="203444" class="button alt">Confirm</button>
+        </div>
+    </div>
+		<div class="close_popup_btn">
+			
+		</div>
+</div>	
+	</div>
+
