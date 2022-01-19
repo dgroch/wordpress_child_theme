@@ -1,5 +1,14 @@
 @import "./parent.css";
 
+body {
+  overflow-x: hidden;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
 /*** Product List View */
 
 .thb-shop-title,
