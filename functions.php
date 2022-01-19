@@ -143,9 +143,7 @@ function session_delivery_location_state()
 			if (user_city_new == null || user_city_new == undefined || user_city_new === '') {
 
 
-				if (current_page_path.match(/product-category/gi) || current_page_path.match(/product-tag/gi) || current_page_path.match(/flower-delivery/gi) ||
-					current_page_path.match(/nsw/gi) || current_page_path.match(/qld/gi) || current_page_path.match(/vic/gi) || current_page_path.match(/sa/gi) ||
-					current_page_path.match(/wa/gi) || current_page_path.match(/tas/gi)) {
+				if (current_page_path.match(/product-category/gi) || current_page_path.match(/product-tag/gi)) {
 
 
 
@@ -158,6 +156,18 @@ function session_delivery_location_state()
 			} else {
 
 				jQuery('.my_new_popup').hide();
+				
+				jQuery("a").each(function (item, index) {
+					var href = jQuery(this).attr("href");
+					if (href.match(/filter_city/gi)) return
+					if (href.match(/product-tag/gi) || href.match(/product-category/gi)) {
+						if (href.match(/\?/gi)) {
+							jQuery(this).attr("href", href + "filter_city=" + JSON.parse(sessionStorage.getItem('state-info')).attr_city);
+						} else {
+							jQuery(this).attr("href", href + "?filter_city=" + JSON.parse(sessionStorage.getItem('state-info')).attr_city);	
+						}
+					}
+				});
 			}
 
 			if (user_city_new == null || user_city_new == undefined || user_city_new === '') {
