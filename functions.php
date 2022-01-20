@@ -159,6 +159,7 @@ function session_delivery_location_state()
 				
 				jQuery("a").each(function (item, index) {
 					var href = jQuery(this).attr("href");
+					if (!href) return
 					if (href.match(/filter_city/gi)) return
 					if (href.match(/product-tag/gi) || href.match(/product-category/gi)) {
 						if (href.match(/\?/gi)) {
@@ -273,7 +274,7 @@ function session_delivery_location_state()
 				}
 			}
 			$("#location_btnne").click(() => {
-				jQuery('.my_new_popup').show();
+				jQuery('.my_new_popup,.my-overlay').show();
 
 			})
 			$("#shipping_city").click(() => {
