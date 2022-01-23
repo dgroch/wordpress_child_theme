@@ -7,6 +7,11 @@ function bundle_upsells()
 ?>
 	<script>
 		jQuery(document).ready(function() {
+			/*** DELETE ME ****/
+			jQuery(document).ready(function () {
+				jQuery(".close_popup_btn").click(function() { jQuery(".my-overlay").hide() })
+			})
+			/*** END DELETE ME ***/
 			var pattern = RegExp('/product/')
 
 			if (pattern.test(window.location.href)) {
@@ -76,6 +81,7 @@ function disable_checkout_fields($fields)
 
 	$fields['shipping']['shipping_city']['custom_attributes']       = array('readonly' => true);
 	$fields['shipping']['shipping_postcode']['custom_attributes']   = array('readonly' => true);
+	
 
 	return $fields;
 }
@@ -94,6 +100,9 @@ function storing_checkout_data_in_session()
 {
 ?>
 	<script>
+    
+    // Looping through the state values on checkout page and getting data from session 
+
 		const statesMap = {
 			ACT: "Australian Capital Territory",
 			NSW: "New South Wales",
@@ -119,10 +128,7 @@ function storing_checkout_data_in_session()
 
 					document.getElementById("shipping_state")
 						.value = data.state
-					// 				   el.setAttribute("value", statesMap[data.state])
-
-
-					//   el.innerText = statesMap[data.state]
+				
 				}
 
 			}
@@ -143,9 +149,7 @@ function session_delivery_location_state()
 			if (user_city_new == null || user_city_new == undefined || user_city_new === '') {
 
 
-				if (current_page_path.match(/product-category/gi) || current_page_path.match(/product-tag/gi) || current_page_path.match(/flower-delivery/gi) ||
-					current_page_path.match(/nsw/gi) || current_page_path.match(/qld/gi) || current_page_path.match(/vic/gi) || current_page_path.match(/sa/gi) ||
-					current_page_path.match(/wa/gi) || current_page_path.match(/tas/gi)) {
+				if (current_page_path.match(/product-category/gi) || current_page_path.match(/product-tag/gi)) {
 
 
 
@@ -158,6 +162,19 @@ function session_delivery_location_state()
 			} else {
 
 				jQuery('.my_new_popup').hide();
+				
+				jQuery("a").each(function (item, index) {
+					var href = jQuery(this).attr("href");
+					if (!href) return
+					if (href.match(/filter_city/gi)) return
+					if (href.match(/product-tag/gi) || href.match(/product-category/gi)) {
+						if (href.match(/\?/gi)) {
+							jQuery(this).attr("href", href + "filter_city=" + JSON.parse(sessionStorage.getItem('state-info')).attr_city);
+						} else {
+							jQuery(this).attr("href", href + "?filter_city=" + JSON.parse(sessionStorage.getItem('state-info')).attr_city);	
+						}
+					}
+				});
 			}
 
 			if (user_city_new == null || user_city_new == undefined || user_city_new === '') {
@@ -173,6 +190,8 @@ function session_delivery_location_state()
 				$(".my_new_popup").hide();
 			});
 
+			
+	// Auto-complete form using fetch API		
 			function formatResult(result) {
 				return result.suburb + ", " + result.state + ", " + result.postcode
 			}
@@ -208,12 +227,22 @@ function session_delivery_location_state()
 						})
 						.then(function(result) {
 							selectedState = result
-							$("#location").val(formatResult(result));
+						$("#location").val(formatResult(result));
+							var formatted_results_var = $("#location").val(formatResult(result));
+						
+						if (formatted_results_var !=""){
 							$("#confirm-location").prop("disabled", false);
+
+							} 
 						});
 				}
 
 			});
+
+	// Confirm Location button will trigger this code if session data is empty
+
+			if (user_city_new == null || user_city_new == undefined || user_city_new === '') {
+
 			$("#confirm-location").click(() => {
 				var state_info = JSON.stringify(selectedState)
 
@@ -235,11 +264,84 @@ function session_delivery_location_state()
 
 			})
 
+			}
+
+// Confirm Location button will trigger this code if session data is not empty
+
+if (user_city_new != null || user_city_new != undefined || user_city_new != '') {
+	
+	if (user_city_new !=null){
+		var input_value_from_session = document.getElementById("location")
+		.value =  toJSON_new.suburb + ", " + toJSON_new.state + ", " + toJSON_new.postcode
+		var pre_session_data = 	toJSON_new.suburb + ", " + toJSON_new.state + ", " + toJSON_new.postcode
+var new_results_from_session = pre_session_data.localeCompare(input_value_from_session)
+		}
+	
+
+		if(input_value_from_session){
+					$("#confirm-location").prop("disabled", false);
+				}
 
 
+	$("#confirm-location").click(() => {
+		
+				var state_info = JSON.stringify(selectedState)
+if  (document.getElementById("location")
+		.value != input_value_from_session) {
+				sessionStorage.setItem("state-info", `${state_info}`)
+						 
+					 }
+				var new_current_page_path = window.location.pathname;
+	
+				 if (new_current_page_path.match(/product-category/gi) || new_current_page_path.match(/product-tag/gi)) {
+					 
+					 if (new_results_from_session == 0 && $("#location").val() == input_value_from_session){
+
+					$(".my_new_popup").hide();
+
+	} else {
+					 
+					 
+					window.location.href = location.origin + location.pathname +
+						'?filter_city=' + selectedState.attr_city
+	}
+					 
+				} else if (new_current_page_path.match(/checkout/gi)) {
+					
+					 if (new_results_from_session == 0 && $("#location").val() == input_value_from_session){
+
+					$(".my_new_popup").hide();
+
+	} else{
+					
+					
+					
+					window.location.href = location.origin + location.pathname
+	}
+				} else {
+					
+					 if (new_results_from_session == 0 && $("#location").val() == input_value_from_session){
+
+					$(".my_new_popup").hide();
+
+	} else{
+					
+					window.location.href = location.origin + location.pathname + selectedState.attr_city
+
+	}
+				}
+
+
+			})
+	
+			
+}
+// Refreshing current page if change of path is detected
 
 			if (user_city_new != null || user_city_new != undefined || user_city_new != '') {
-
+				
+				
+					
 				if (current_page_path.match(/product-category/gi) || current_page_path.match(/product-tag/gi)) {
 					if (window.location.href.includes("filter_city")) {} else {
 						const get_user_suburb = sessionStorage.getItem('state-info')
@@ -262,26 +364,34 @@ function session_delivery_location_state()
 					}
 				}
 			}
+
+
+      //Triggerring location popup on specific element ID's
+
 			$("#location_btnne").click(() => {
-				jQuery('.my_new_popup').show();
+				jQuery('.my_new_popup,.my-overlay').show();
 
 			})
 			$("#shipping_city").click(() => {
-				jQuery('.my_new_popup').show();
+				jQuery('.my_new_popup,.my-overlay').show();
 
 			})
-			$("#shipping_state").click(() => {
-				jQuery('.my_new_popup').show();
+			$("#shipping_state_field").click(() => {
+				jQuery('.my_new_popup,.my-overlay').show();
 
 			})
 			$("#select2-shipping_state-container").click(() => {
-				jQuery('.my_new_popup').show();
+				jQuery('.my_new_popup,.my-overlay').show();
 
 			})
 			$("#shipping_postcode").click(() => {
-				jQuery('.my_new_popup').show();
+				jQuery('.my_new_popup,.my-overlay').show();
 
 			})
+
+// 			$("#shipping_state").prop("disabled", true);
+// 			$('#shipping_state').css({ opacity: 0.9});
+
 			// 	$("#location").autocomplete({
 			//         select: function(event, ui) {
 			//             $("#confirm-location").val(ui.item.term);
@@ -292,29 +402,14 @@ function session_delivery_location_state()
 			//     }).data("uiItem",$(result).val());
 
 
+// Disable Confirm button if the location input is empty
 
-			// 	 $('#location').keyup(function(){
-			//     if($(this).val() != ""){
-			//         $('#confirm-location').attr('disabled', false); 
-
-			//         $('#confirm-location').css({
-			//             'background-color':'#f4b9b8 !important', 
-			//             'color' : '#000000 !important',
-			//             'cursor': 'pointer'
-			//         }
-			//         ) ;    
-			//     }    
-			//     else{
-			//         $('#confirm-location').css({
-			//             'background-color':'#151515 ', 
-			//             'color' : '#fff ',
-
-
-			//         }
-			//         ) ;    
-
-			//     }
-			// })
+				 $('#location').keyup(function(){
+			    if($(this).val() == ""){
+			        $('#confirm-location').attr('disabled', true); 
+      
+			    }    
+			    });
 
 		});
 	</script>
@@ -532,3 +627,4 @@ function replacing_add_to_cart_button($button, $product)
 
 	return $button;
 }
+

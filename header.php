@@ -2,6 +2,7 @@
 <html <?php language_attributes(); ?>>
 
 <head>
+	<script src="https://www.googleoptimize.com/optimize.js?id=GTM-TNV6NPT"></script>
 	<meta charset="<?php bloginfo('charset'); ?>" />
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
