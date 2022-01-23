@@ -11,20 +11,113 @@
 	License URI: -
 */
 
-.shipping_city_field {
-  pointer-events: none;
+/*** Style My Overlay ***/
+.my-overlay {
+    display: flex;
+    position: fixed;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 100vh;
+    z-index: 999991;
+    overflow: hidden auto;
+    padding: 0 15px;
+}
+
+.my-overlay-mask {
+    background-color: rgba(255, 255, 255, 0.85);
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.my-overlay-container {
+    max-width: 90%;
+    background-color: rgb(13, 13, 13);
+    display: flex;
+    align-items: center;
+    z-index: 999999;
+    padding: 40px 10vw;
+    align-items: center;
+    justify-content: center;
+}
+.my-overlay-content {
+    max-width: 100%;
+}
+.my-overlay-container li {
+    list-style-type: none;
+    border: 1px solid #ffffff;
+    min-width: 30vh;
+    transition: background-color 0.1s ease;
+}
+
+.my-overlay-container li:hover {
+    list-style-type: none;
+    background: #ffffff;
+}
+
+.my-overlay-container li:hover a {
+    color: rgb(13, 13, 13);
+}
+
+.my-overlay h2, 
+.my-overlay-container a {
+    color: #fff
+}
+
+.my-overlay h2 {
+    font-size: 5rem;
+    font-weight: 700;
+    text-align: center;
+    line-height: 1;
+    text-transform: uppercase;
+    padding: 10px 0;
+    letter-spacing: 0.5rem;
+}
+
+.my-overlay a {
+    font-size: 1.2rem;
+    width: 100%;
+    height: 100%;
+    display: inline-block;
+    text-align: center;
+    padding: 7px 0;
+}
+.close_popup_btn:after{
+    content: "×";
+    color: #343434;
+    font-size: 35px;
+	opacity: 0.9;
+	cursor:pointer;
+}
+
+.close_popup_btn{
+	height:430px;
+}
+@media only screen and (max-width: 768px) {
+  /* For mobile phones: */
+  h2 {
+    font-size: 2rem !important;
+  }
+}
+
+
+
+/**** Written by Jahanzaib ***/
+#shipping_state_field{
+    pointer-events:none;
+    
 }
 
 #pop_up_btn_triger {
   line-height: 1.4;
 }
 
-.select2.select2-container--default {
-  pointer-events: none;
-}
-.select2.select2-container.select2-container--default.select2-container--above.select2-container--focus {
-  pointer-events: none;
-}
 
 @media only screen and (max-width: 600px) {
   #popup_head_ing {
@@ -34,6 +127,7 @@
 
   .close_popup_btn {
     margin-left: -30px;
+    margin-bottom:30px;
   }
 }
 
@@ -143,6 +237,28 @@
   margin-top: 10px !important;
 }
 
+#confirm-location-new {
+  text-decoration: none !important;
+  border: 2px solid white !important;
+  width: 100% !important;
+  color: white !important;
+  margin-top: 10px !important;
+}
+
 #confirm-location:disabled {
   opacity: 0.5;
+}
+
+#confirm-location-new:disabled {
+  opacity: 0.5;
+}
+
+.row {
+	margin-left: 0;
+	margin-right: 0;
+}
+
+.page-padding.shop-header-style1 {
+    margin-left: 15px !important;
+    margin-right: 15px !important;
 }
