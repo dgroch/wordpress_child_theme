@@ -12,9 +12,10 @@ function bundle_upsells()
 				jQuery(".close_popup_btn").click(function() { jQuery(".my-overlay").hide() })
 			})
 			/*** END DELETE ME ***/
-			var pattern = RegExp('/product/')
+			var productPattern = /product/gi
+			var hamperPattern = /hamper/gi
 
-			if (pattern.test(window.location.href)) {
+			if (productPattern.test(window.location.pathname) && !hamperPattern.test(window.location.pathname)) {
 				// Append DOM elements
 				var bundledProduct = jQuery('.bundled_product')
 				bundledProduct.append('<img class="round_tick inactive" src="/wp-content/uploads/2021/05/round-tick-f8f8f8.png">')
