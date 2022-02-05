@@ -12,9 +12,10 @@ function bundle_upsells()
 				jQuery(".close_popup_btn").click(function() { jQuery(".my-overlay").hide() })
 			})
 			/*** END DELETE ME ***/
-			var pattern = RegExp('/product/')
+			var productPattern = /product/gi
+			var hamperPattern = /hamper/gi
 
-			if (pattern.test(window.location.href)) {
+			if (productPattern.test(window.location.pathname) && !hamperPattern.test(window.location.pathname)) {
 				// Append DOM elements
 				var bundledProduct = jQuery('.bundled_product')
 				bundledProduct.append('<img class="round_tick inactive" src="/wp-content/uploads/2021/05/round-tick-f8f8f8.png">')
@@ -94,7 +95,44 @@ add_filter('woocommerce_checkout_fields', 'disable_checkout_fields', 10, 1);
 
 add_action('wp_head', 'session_delivery_location_state');
 add_action('wp_footer', 'storing_checkout_data_in_session');
+add_action('wp_footer','custom_jquery_report_Checkout_Errors_TO_ORIBI_script');
+function custom_jquery_report_Checkout_Errors_TO_ORIBI_script(){
+        ?>
+            <script type="text/javascript">
+		jQuery('body').on('checkout_error', function(){;
+		    var woo_checkout_error_report = "";
+    $(".woocommerce-error").find("li").each(function(index,ele){
+        woo_checkout_error_report += ele.innerText + " ";
+    })
+ORIBI.api('track', `Checkout Errors: ${woo_checkout_error_report}`);
 
+	  });
+		
+// 				$('#wc-pin_payments-cc-form').change(function(){
+//    alert("div has changed!");
+//    // replace with your actions
+// });
+
+// 				
+// 					
+// 						
+// 								$('.woocommerce_error').change(function(){
+// 					console.log("Payment errors ");
+// 				}
+
+// 			jQuery('body').on('woocommerce_error', function(){
+// 				console.log("payment errors");
+// 			});
+			
+// 	 $(".woocommerce_error").find("li").each(function(index,ele){
+//          woo_err_report += ele.innerText + " ";
+//     });
+						
+
+
+            </script>
+        <?php
+}
 
 function storing_checkout_data_in_session()
 {
@@ -133,6 +171,11 @@ function storing_checkout_data_in_session()
 
 			}
 		}
+		if (window.location.href.match(/flower-delivery/gi)){
+				jQuery('#page_below_catelogue').hide();
+				jQuery('#page_below_catelogue_sydney').hide();
+		}
+
 	</script>
 <?php
 }
@@ -364,7 +407,14 @@ if  (document.getElementById("location")
 					}
 				}
 			}
+//Hide the results button trigger on shop page
 
+if (window.location.href.match(/shop/)) {
+			
+		$("#pop_up_btn_triger").hide();
+			}
+			
+			
 
       //Triggerring location popup on specific element ID's
 
@@ -627,4 +677,5 @@ function replacing_add_to_cart_button($button, $product)
 
 	return $button;
 }
+
 
