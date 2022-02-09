@@ -7,14 +7,18 @@ function bundle_upsells()
 ?>
 	<script>
 		jQuery(document).ready(function() {
+			/*** Out of Stock --> Sold Out ***/
+			jQuery(".badge.out-of-stock").text("SOLD OUT")
+			
 			/*** DELETE ME ****/
 			jQuery(document).ready(function () {
 				jQuery(".close_popup_btn").click(function() { jQuery(".my-overlay").hide() })
 			})
 			/*** END DELETE ME ***/
-			var pattern = RegExp('/product/')
+			var productPattern = /product/gi
+			var hamperPattern = /hamper/gi
 
-			if (pattern.test(window.location.href)) {
+			if (productPattern.test(window.location.pathname) && !hamperPattern.test(window.location.pathname)) {
 				// Append DOM elements
 				var bundledProduct = jQuery('.bundled_product')
 				bundledProduct.append('<img class="round_tick inactive" src="/wp-content/uploads/2021/05/round-tick-f8f8f8.png">')
@@ -94,7 +98,44 @@ add_filter('woocommerce_checkout_fields', 'disable_checkout_fields', 10, 1);
 
 add_action('wp_head', 'session_delivery_location_state');
 add_action('wp_footer', 'storing_checkout_data_in_session');
+add_action('wp_footer','custom_jquery_report_Checkout_Errors_TO_ORIBI_script');
+function custom_jquery_report_Checkout_Errors_TO_ORIBI_script(){
+        ?>
+            <script type="text/javascript">
+		jQuery('body').on('checkout_error', function(){;
+		    var woo_checkout_error_report = "";
+    $(".woocommerce-error").find("li").each(function(index,ele){
+        woo_checkout_error_report += ele.innerText + " ";
+    })
+ORIBI.api('track', `Checkout Errors: ${woo_checkout_error_report}`);
 
+	  });
+		
+// 				$('#wc-pin_payments-cc-form').change(function(){
+//    alert("div has changed!");
+//    // replace with your actions
+// });
+
+// 				
+// 					
+// 						
+// 								$('.woocommerce_error').change(function(){
+// 					console.log("Payment errors ");
+// 				}
+
+// 			jQuery('body').on('woocommerce_error', function(){
+// 				console.log("payment errors");
+// 			});
+			
+// 	 $(".woocommerce_error").find("li").each(function(index,ele){
+//          woo_err_report += ele.innerText + " ";
+//     });
+						
+
+
+            </script>
+        <?php
+}
 
 function storing_checkout_data_in_session()
 {
@@ -133,6 +174,11 @@ function storing_checkout_data_in_session()
 
 			}
 		}
+		if (window.location.href.match(/flower-delivery/gi)){
+				jQuery('#page_below_catelogue').hide();
+				jQuery('#page_below_catelogue_sydney').hide();
+		}
+
 	</script>
 <?php
 }
@@ -149,7 +195,7 @@ function session_delivery_location_state()
 			if (user_city_new == null || user_city_new == undefined || user_city_new === '') {
 
 
-				if (current_page_path.match(/product-category/gi) || current_page_path.match(/product-tag/gi)) {
+				if (current_page_path.match(/product-category/gi) || current_page_path.match(/product-tag/gi) || current_page_path.match(/bouquet/gi)) {
 
 
 
@@ -167,7 +213,7 @@ function session_delivery_location_state()
 					var href = jQuery(this).attr("href");
 					if (!href) return
 					if (href.match(/filter_city/gi)) return
-					if (href.match(/product-tag/gi) || href.match(/product-category/gi)) {
+					if (href.match(/product-tag/gi) || href.match(/product-category/gi) || href.match(/bouquet/gi)) {
 						if (href.match(/\?/gi)) {
 							jQuery(this).attr("href", href + "filter_city=" + JSON.parse(sessionStorage.getItem('state-info')).attr_city);
 						} else {
@@ -249,7 +295,7 @@ function session_delivery_location_state()
 				sessionStorage.setItem("state-info", `${state_info}`)
 				var new_current_page_path = window.location.pathname;
 
-				if (new_current_page_path.match(/product-category/gi) || new_current_page_path.match(/product-tag/gi)) {
+				if (new_current_page_path.match(/product-category/gi) || new_current_page_path.match(/product-tag/gi) || new_current_page_path.match(/bouquet/gi)) {
 					window.location.href = location.origin + location.pathname +
 						'?filter_city=' + selectedState.attr_city
 
@@ -293,7 +339,7 @@ if  (document.getElementById("location")
 					 }
 				var new_current_page_path = window.location.pathname;
 	
-				 if (new_current_page_path.match(/product-category/gi) || new_current_page_path.match(/product-tag/gi)) {
+				 if (new_current_page_path.match(/product-category/gi) || new_current_page_path.match(/product-tag/gi) || new_current_page_path.match(/bouquet/gi)) {
 					 
 					 if (new_results_from_session == 0 && $("#location").val() == input_value_from_session){
 
@@ -336,13 +382,40 @@ if  (document.getElementById("location")
 	
 			
 }
+			
+			
+	// showing search suggestions if session data exists 
+			
+if (user_city_new != null || user_city_new != undefined || user_city_new != '') {
+	
+	$("#location").focus(function () {
+	if (sessionStorage.getItem("state-info") != null) {
+
+		const get_session_data_value = sessionStorage.getItem('state-info')
+			const JSON_Obj = JSON.parse(get_session_data_value)
+			const to_str_var = JSON.stringify(JSON_Obj.suburb + ", " + JSON_Obj.state + ", " + JSON_Obj.postcode)
+            $(this).autocomplete("search",`${to_str_var}`);
+	}
+        });
+
+	
+};
+					
+			
+			
+			
+			
+			
+			
+			
+			
 // Refreshing current page if change of path is detected
 
 			if (user_city_new != null || user_city_new != undefined || user_city_new != '') {
 				
 				
 					
-				if (current_page_path.match(/product-category/gi) || current_page_path.match(/product-tag/gi)) {
+				if (current_page_path.match(/product-category/gi) || current_page_path.match(/product-tag/gi) || current_page_path.match(/bouquet/gi)) {
 					if (window.location.href.includes("filter_city")) {} else {
 						const get_user_suburb = sessionStorage.getItem('state-info')
 						const toJSON_user_suburb = JSON.parse(get_user_suburb)
@@ -364,7 +437,14 @@ if  (document.getElementById("location")
 					}
 				}
 			}
+//Hide the results button trigger on shop page
 
+if (window.location.href.match(/shop/)) {
+			
+		$("#pop_up_btn_triger").hide();
+			}
+			
+			
 
       //Triggerring location popup on specific element ID's
 
@@ -627,4 +707,5 @@ function replacing_add_to_cart_button($button, $product)
 
 	return $button;
 }
+
 
