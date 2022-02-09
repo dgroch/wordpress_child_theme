@@ -7,6 +7,9 @@ function bundle_upsells()
 ?>
 	<script>
 		jQuery(document).ready(function() {
+			/*** Out of Stock --> Sold Out ***/
+			jQuery(".badge.out-of-stock").text("SOLD OUT")
+			
 			/*** DELETE ME ****/
 			jQuery(document).ready(function () {
 				jQuery(".close_popup_btn").click(function() { jQuery(".my-overlay").hide() })
