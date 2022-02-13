@@ -68,10 +68,11 @@
 					<th><?php _e( 'Order Date:', 'woocommerce-pdf-invoices-packing-slips' ); ?></th>
 					<td><?php $this->order_date(); ?></td>
 				</tr>
-				<tr class="payment-method">
-					<th><?php _e( 'Payment Method:', 'woocommerce-pdf-invoices-packing-slips' ); ?></th>
-					<td><?php $this->payment_method(); ?></td>
+				<tr class='delivery-date'>
+				<?php do_action( 'wpo_wcpdf_after_order_details', $this->type, $this->order ) ; ?>
 				</tr>
+					
+				
 				<?php do_action( 'wpo_wcpdf_after_order_data', $this->type, $this->order ); ?>
 			</table>			
 		</td>
@@ -140,9 +141,13 @@
 
 <?php do_action( 'wpo_wcpdf_after_order_details', $this->type, $this->order ); ?>
 
+
 <?php if ( $this->get_footer() ): ?>
 <div id="footer">
 	<?php $this->footer(); ?>
 </div><!-- #letter-footer -->
 <?php endif; ?>
 <?php do_action( 'wpo_wcpdf_after_document', $this->type, $this->order ); ?>
+
+
+
