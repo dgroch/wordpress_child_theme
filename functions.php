@@ -195,7 +195,7 @@ function session_delivery_location_state()
 			if (user_city_new == null || user_city_new == undefined || user_city_new === '') {
 
 
-				if (current_page_path.match(/product-category/gi) || current_page_path.match(/product-tag/gi) || current_page_path.match(/bouquet/gi)) {
+				if (current_page_path.match(/product-category/gi) || current_page_path.match(/product-tag/gi)) {
 
 
 
@@ -213,7 +213,7 @@ function session_delivery_location_state()
 					var href = jQuery(this).attr("href");
 					if (!href) return
 					if (href.match(/filter_city/gi)) return
-					if (href.match(/product-tag/gi) || href.match(/product-category/gi) || href.match(/bouquet/gi)) {
+					if (href.match(/product-tag/gi) || href.match(/product-category/gi)) {
 						if (href.match(/\?/gi)) {
 							jQuery(this).attr("href", href + "filter_city=" + JSON.parse(sessionStorage.getItem('state-info')).attr_city);
 						} else {
@@ -295,7 +295,7 @@ function session_delivery_location_state()
 				sessionStorage.setItem("state-info", `${state_info}`)
 				var new_current_page_path = window.location.pathname;
 
-				if (new_current_page_path.match(/product-category/gi) || new_current_page_path.match(/product-tag/gi) || new_current_page_path.match(/bouquet/gi)) {
+				if (new_current_page_path.match(/product-category/gi) || new_current_page_path.match(/product-tag/gi)) {
 					window.location.href = location.origin + location.pathname +
 						'?filter_city=' + selectedState.attr_city
 
@@ -339,7 +339,7 @@ if  (document.getElementById("location")
 					 }
 				var new_current_page_path = window.location.pathname;
 	
-				 if (new_current_page_path.match(/product-category/gi) || new_current_page_path.match(/product-tag/gi) || new_current_page_path.match(/bouquet/gi)) {
+				 if (new_current_page_path.match(/product-category/gi) || new_current_page_path.match(/product-tag/gi) ) {
 					 
 					 if (new_results_from_session == 0 && $("#location").val() == input_value_from_session){
 
@@ -415,7 +415,7 @@ if (user_city_new != null || user_city_new != undefined || user_city_new != '') 
 				
 				
 					
-				if (current_page_path.match(/product-category/gi) || current_page_path.match(/product-tag/gi) || current_page_path.match(/bouquet/gi)) {
+				if (current_page_path.match(/product-category/gi) || current_page_path.match(/product-tag/gi)) {
 					if (window.location.href.includes("filter_city")) {} else {
 						const get_user_suburb = sessionStorage.getItem('state-info')
 						const toJSON_user_suburb = JSON.parse(get_user_suburb)
