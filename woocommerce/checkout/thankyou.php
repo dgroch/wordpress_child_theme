@@ -80,6 +80,10 @@ defined( 'ABSPATH' ) || exit;
                                 <?php endif; ?>
 
                         </ul>
+        
+                        <div>
+			        <img height ="0" width ="0" src ="https://www.myshopping.com.au/sale.asp?mid=20775212&amount=<?php echo $order->get_formatted_order_total(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>&order=<?php echo $order->get_order_number(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>" />
+			</div>
 
                 <?php endif; ?>
 
