@@ -1,5 +1,17 @@
 <?php
 
+//Change the 'Billing details' checkout label to 'Contact Information'
+function wc_billing_field_strings( $translated_text, $text, $domain ) {
+	switch ( $translated_text ) {
+		case 'Billing details' :
+			$translated_text = __( 'Billing Information', 'woocommerce' );
+			break;
+	}
+	return $translated_text;
+}
+
+add_filter( 'gettext', 'wc_billing_field_strings', 20, 3 );
+
 /** Bundle Up-Sells UX **/
 add_action('wp_footer', 'bundle_upsells');
 function bundle_upsells()
@@ -79,7 +91,9 @@ function bundle_upsells()
 }
 
 
+// Disable checkout fields with custom attributes
 
+/**
 function disable_checkout_fields($fields)
 {
 
@@ -91,7 +105,7 @@ function disable_checkout_fields($fields)
 }
 
 add_filter('woocommerce_checkout_fields', 'disable_checkout_fields', 10, 1);
-
+**/
 
 /** Delivery Location popup with session saving **/
 
@@ -99,8 +113,17 @@ add_filter('woocommerce_checkout_fields', 'disable_checkout_fields', 10, 1);
 add_action('wp_head', 'session_delivery_location_state');
 add_action('wp_footer', 'storing_checkout_data_in_session');
 add_action('wp_footer','custom_jquery_report_Checkout_Errors_TO_ORIBI_script');
+add_action('wp_footer', 'flux_plugin_custom_code');
+function flux_plugin_custom_code(){
+?>
+
+<script>
+</script>
+<?php
+}
 function custom_jquery_report_Checkout_Errors_TO_ORIBI_script(){
         ?>
+
             <script type="text/javascript">
 		jQuery('body').on('checkout_error', function(){;
 		    var woo_checkout_error_report = "";
@@ -134,6 +157,7 @@ ORIBI.api('track', `Checkout Errors: ${woo_checkout_error_report}`);
 
 
             </script>
+
         <?php
 }
 
@@ -144,36 +168,36 @@ function storing_checkout_data_in_session()
     
     // Looping through the state values on checkout page and getting data from session 
 
-		const statesMap = {
-			ACT: "Australian Capital Territory",
-			NSW: "New South Wales",
-			SA: "South Australia",
-			WA: "Western Australia",
-			VIC: "Victoria",
-			QLD: "Queensland",
-			NT: "Northern Territory",
-			TAS: "Tasmania",
-		};
-		if (window.location.href.match(/checkout/gi)) {
-			if (sessionStorage.getItem("state-info") != null) {
+// 		const statesMap = {
+// 			ACT: "Australian Capital Territory",
+// 			NSW: "New South Wales",
+// 			SA: "South Australia",
+// 			WA: "Western Australia",
+// 			VIC: "Victoria",
+// 			QLD: "Queensland",
+// 			NT: "Northern Territory",
+// 			TAS: "Tasmania",
+// 		};
+// 		if (window.location.href.match(/checkout/gi)) {
+// 			if (sessionStorage.getItem("state-info") != null) {
 
-				var data = sessionStorage.getItem("state-info")
+// 				var data = sessionStorage.getItem("state-info")
 
-				if (data) {
-					data = JSON.parse(data)
+// 				if (data) {
+// 					data = JSON.parse(data)
 
-					document.getElementById("shipping_city")
-						.value = data.suburb
-					document.getElementById("shipping_postcode")
-						.value = data.postcode
+// 					document.getElementById("shipping_city")
+// 						.value = data.suburb
+// 					document.getElementById("shipping_postcode")
+// 						.value = data.postcode
 
-					document.getElementById("shipping_state")
-						.value = data.state
+// 					document.getElementById("shipping_state")
+// 						.value = data.state
 				
-				}
+// 				}
 
-			}
-		}
+// 			}
+// 		}
 		if (window.location.href.match(/flower-delivery/gi)){
 				jQuery('#page_below_catelogue').hide();
 				jQuery('#page_below_catelogue_sydney').hide();
@@ -187,7 +211,15 @@ function storing_checkout_data_in_session()
 function session_delivery_location_state()
 {
 ?>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<script>
+		
+		
+		if (window.location.href.match(/checkout/gi)){
+				
+		} else{
 		jQuery(document).ready(function() {
 			var current_page_path = window.location.pathname;
 			const user_city_new = sessionStorage.getItem('state-info')
@@ -231,9 +263,9 @@ function session_delivery_location_state()
 				jQuery('.close_popup_btn').show();
 
 			}
-			$(".close_popup_btn").click(function() {
+			jQuery(".close_popup_btn").click(function() {
 
-				$(".my_new_popup").hide();
+				jQuery(".my_new_popup").hide();
 			});
 
 			
@@ -242,7 +274,7 @@ function session_delivery_location_state()
 				return result.suburb + ", " + result.state + ", " + result.postcode
 			}
 			var selectedState = {}
-			$("#location").autocomplete({
+			jQuery("#location").autocomplete({
 				appendTo: "#my-overlay",
 				source: function(request, response) {
 					fetch("https://logistics.figandbloom.com.au/search?query=" + request.term)
@@ -273,11 +305,11 @@ function session_delivery_location_state()
 						})
 						.then(function(result) {
 							selectedState = result
-						$("#location").val(formatResult(result));
-							var formatted_results_var = $("#location").val(formatResult(result));
+						jQuery("#location").val(formatResult(result));
+							var formatted_results_var = jQuery("#location").val(formatResult(result));
 						
 						if (formatted_results_var !=""){
-							$("#confirm-location").prop("disabled", false);
+							jQuery("#confirm-location").prop("disabled", false);
 
 							} 
 						});
@@ -289,7 +321,7 @@ function session_delivery_location_state()
 
 			if (user_city_new == null || user_city_new == undefined || user_city_new === '') {
 
-			$("#confirm-location").click(() => {
+			jQuery("#confirm-location").click(() => {
 				var state_info = JSON.stringify(selectedState)
 
 				sessionStorage.setItem("state-info", `${state_info}`)
@@ -325,11 +357,11 @@ var new_results_from_session = pre_session_data.localeCompare(input_value_from_s
 	
 
 		if(input_value_from_session){
-					$("#confirm-location").prop("disabled", false);
+					jQuery("#confirm-location").prop("disabled", false);
 				}
 
 
-	$("#confirm-location").click(() => {
+	jQuery("#confirm-location").click(() => {
 		
 				var state_info = JSON.stringify(selectedState)
 if  (document.getElementById("location")
@@ -341,9 +373,9 @@ if  (document.getElementById("location")
 	
 				 if (new_current_page_path.match(/product-category/gi) || new_current_page_path.match(/product-tag/gi) ) {
 					 
-					 if (new_results_from_session == 0 && $("#location").val() == input_value_from_session){
+					 if (new_results_from_session == 0 && jQuery("#location").val() == input_value_from_session){
 
-					$(".my_new_popup").hide();
+					jQuery(".my_new_popup").hide();
 
 	} else {
 					 
@@ -354,9 +386,9 @@ if  (document.getElementById("location")
 					 
 				} else if (new_current_page_path.match(/checkout/gi)) {
 					
-					 if (new_results_from_session == 0 && $("#location").val() == input_value_from_session){
+					 if (new_results_from_session == 0 && jQuery("#location").val() == input_value_from_session){
 
-					$(".my_new_popup").hide();
+					jQuery(".my_new_popup").hide();
 
 	} else{
 					
@@ -366,9 +398,9 @@ if  (document.getElementById("location")
 	}
 				} else {
 					
-					 if (new_results_from_session == 0 && $("#location").val() == input_value_from_session){
+					 if (new_results_from_session == 0 && jQuery("#location").val() == input_value_from_session){
 
-					$(".my_new_popup").hide();
+					jQuery(".my_new_popup").hide();
 
 	} else{
 					
@@ -382,19 +414,20 @@ if  (document.getElementById("location")
 	
 			
 }
-			
+				
 			
 	// showing search suggestions if session data exists 
 			
 if (user_city_new != null || user_city_new != undefined || user_city_new != '') {
 	
-	$("#location").focus(function () {
+	jQuery("#location").focus(function () {
 	if (sessionStorage.getItem("state-info") != null) {
 
 		const get_session_data_value = sessionStorage.getItem('state-info')
 			const JSON_Obj = JSON.parse(get_session_data_value)
 			const to_str_var = JSON.stringify(JSON_Obj.suburb + ", " + JSON_Obj.state + ", " + JSON_Obj.postcode)
-            $(this).autocomplete("search",`${to_str_var}`);
+            		$(this).autocomplete("search",`${to_str_var}`);
+
 	}
         });
 
@@ -492,6 +525,7 @@ if (window.location.href.match(/shop/)) {
 			    });
 
 		});
+		}
 	</script>
 
 
@@ -513,7 +547,7 @@ function add_checkout_page_js()
 			}
 
 			function alterHTML() {
-				jQuery('.shipping_address').prepend('<h3 style="margin-top: 0; margin-bottom: 15px;">Delivery details</h3>')
+				jQuery('.shipping_address').prepend('<h3 style="margin-top: 0; margin-bottom: 15px;">Recipient Information</h3>')
 			}
 
 			function reduceCheckoutAbandonment() {
@@ -575,13 +609,36 @@ function add_checkout_page_js()
 						jQuery("#e_deliverydate_field").show();
 				}, 1000)
 			}
+			
+			function modifyFluxCheckout () {
+				var elShippingAddress = window.jQuery("#ship-to-different-address")
+				var elOrderNotesSwitch = window.jQuery("[for='order_notes_switch']")
+				var elOrderNotesHeader = window.jQuery("#order_notes .mdl-list__item-primary-content")
+				var elOrderNotesButton = window.jQuery("#order_notes .mdl-list__item-secondary-action")
+			
+				var intervalId = window.setInterval(function () {
+					if (elShippingAddress.length
+						&& elOrderNotesSwitch.length
+						&& elOrderNotesHeader.length
+						&& elOrderNotesButton.length) {
+						elShippingAddress.remove()
+						elOrderNotesSwitch.click()
+						elOrderNotesHeader.text("Additional Information").wrap("<h4 />")
+						elOrderNotesButton.remove()
+						window.clearInterval(intervalId)
+					}
+				}, 1000)
+				
+				
+			}
 
 			$(document).ready(function() {
-				alterHTML()
+				modifyFluxCheckout()
+				//alterHTML()
 				createAccountTrue()
-				reduceCheckoutAbandonment()
+				//reduceCheckoutAbandonment()
 				rejectInvalidMessageLength()
-				hideDeliveryDateWhenPostcodeEmpty()
+				//hideDeliveryDateWhenPostcodeEmpty()
 			})
 		})
 	</script>
@@ -707,5 +764,4 @@ function replacing_add_to_cart_button($button, $product)
 
 	return $button;
 }
-
 
