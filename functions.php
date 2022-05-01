@@ -1,5 +1,17 @@
 <?php
 
+//Change the 'Billing details' checkout label to 'Contact Information'
+function wc_billing_field_strings( $translated_text, $text, $domain ) {
+	switch ( $translated_text ) {
+		case 'Billing details' :
+			$translated_text = __( 'Billing Information', 'woocommerce' );
+			break;
+	}
+	return $translated_text;
+}
+
+add_filter( 'gettext', 'wc_billing_field_strings', 20, 3 );
+
 /** Bundle Up-Sells UX **/
 add_action('wp_footer', 'bundle_upsells');
 function bundle_upsells()
@@ -78,6 +90,8 @@ function bundle_upsells()
 <?php
 }
 
+
+// Disable checkout fields with custom attributes
 
 
 function disable_checkout_fields($fields)
@@ -513,7 +527,7 @@ function add_checkout_page_js()
 			}
 
 			function alterHTML() {
-				jQuery('.shipping_address').prepend('<h3 style="margin-top: 0; margin-bottom: 15px;">Delivery details</h3>')
+				jQuery('.shipping_address').prepend('<h3 style="margin-top: 0; margin-bottom: 15px;">Recipient Information</h3>')
 			}
 
 			function reduceCheckoutAbandonment() {
@@ -708,4 +722,41 @@ function replacing_add_to_cart_button($button, $product)
 	return $button;
 }
 
+// add_filter( 'woocommerce_output_related_products_args', 'product_output_related_args' );
+//   function product_output_related_args( $args ) {
+//   $args['posts_per_page'] = 4; // 4 related products
+// 'tax_query' => array(
+//     array(
+//         'taxonomy' => 'pa_city',
+//         'terms' => 'brisbane',
+//         'field' => 'slug',
+//     )
+// )	  
+//   return $args;
+	  
+// }
 
+	
+
+add_filter( 'woocommerce_related_products', 'filter_woocommerce_related_products', 10, 3 );
+
+function filter_woocommerce_related_products( $related_posts, $product_id, $args ) {    
+    foreach( $related_posts as $key => $related_post ) {        
+        // Get product
+        $related_product = wc_get_product( $related_post );
+        
+        // Is a WC product 
+        if ( is_a( $related_product, 'WC_Product' ) ) {
+            // Stock status
+            $stock_status = $related_product->get_stock_status();
+            
+            // Out of stock
+            if ( $stock_status == 'outofstock' ) {
+                unset( $related_posts[$key] );
+            }
+        }
+    }
+    
+    return $related_posts;
+	
+}
